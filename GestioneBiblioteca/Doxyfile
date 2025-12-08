@@ -1,0 +1,14 @@
+
+PROJECT_NAME           = "GestioneBiblioteca"
+
+OPTIMIZE_OUTPUT_JAVA   = YES
+
+# Dove si trova il codice sorgente 
+INPUT                  =C:\Users\affar\OneDrive\Documenti\NetBeansProjects\Biblioteca\src\main\java
+
+RECURSIVE              = YES
+
+
+
+# Cartella di output 
+OUTPUT_DIRECTORY       =C:\Users\affar\OneDrive\Documenti\NetBeansProjects\Biblioteca/target/site/doxygen
