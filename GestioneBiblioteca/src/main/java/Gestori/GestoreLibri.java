@@ -18,7 +18,8 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
 
     /** Collezione osservabile che contiene tutti i libri presenti nel sistema. */
     private ObservableList<Libro> listaLibri;
-
+       
+    
     /**
      * @brief Costruttore della classe GestoreLibri.
      * * Inizializza la lista dei libri come una collezione vuota.
