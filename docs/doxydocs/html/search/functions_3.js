@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['gestorelibri_0',['GestoreLibri',['../class_gestori_1_1_gestore_libri.html#a28d300a205db3bafac930f34eec174f1',1,'Gestori::GestoreLibri']]],
+  ['gestoreprestiti_1',['GestorePrestiti',['../class_gestori_1_1_gestore_prestiti.html#a8f8de5aa0edc43abe1535ce78a7f7967',1,'Gestori::GestorePrestiti']]],
+  ['gestoreutenti_2',['GestoreUtenti',['../class_gestori_1_1_gestore_utenti.html#a00df99e050c1e61306f5d9160c3f05a3',1,'Gestori::GestoreUtenti']]],
+  ['getannopubblicazione_3',['getAnnoPubblicazione',['../classmodel_1_1_libro.html#ac83b9bc0899b57861ff373060a84c91d',1,'model::Libro']]],
+  ['getautori_4',['getAutori',['../classmodel_1_1_libro.html#ad42bb1401253c57526dd79bb765a6c04',1,'model::Libro']]],
+  ['getcognome_5',['getCognome',['../classmodel_1_1_utente.html#af3219455fef0d2fa959bfc03c7c3ae7c',1,'model::Utente']]],
+  ['getcopiedisponibili_6',['getCopieDisponibili',['../classmodel_1_1_libro.html#aeaeb7149861cdfbc4145dd9a41cf35b8',1,'model::Libro']]],
+  ['getdatainizio_7',['getDataInizio',['../classmodel_1_1_prestito.html#a535e31f4e67313df42005e88a9194208',1,'model::Prestito']]],
+  ['getdatascadenza_8',['getDataScadenza',['../classmodel_1_1_prestito.html#a357620d519308f8790b0595bab0d291d',1,'model::Prestito']]],
+  ['getemail_9',['getEmail',['../classmodel_1_1_utente.html#ae24e0c76440afc40216978e5cbe14db5',1,'model::Utente']]],
+  ['getisbn_10',['getIsbn',['../classmodel_1_1_libro.html#aad3ec40164cecb5ba545fa76e05b672e',1,'model::Libro']]],
+  ['getlibro_11',['getLibro',['../classmodel_1_1_prestito.html#a4fda7483c3b7ef8bd0d5b553c4e877e2',1,'model::Prestito']]],
+  ['getlista_12',['getLista',['../class_gestori_1_1_gestore_libri.html#a7bc081aba54d1f48ac987bc98fc217a0',1,'Gestori.GestoreLibri.getLista()'],['../class_gestori_1_1_gestore_prestiti.html#a719fcd6867080eb8f8c19073bb2bfaea',1,'Gestori.GestorePrestiti.getLista()'],['../class_gestori_1_1_gestore_utenti.html#a5ba16fcdba30bf99e825b7291d18d4b3',1,'Gestori.GestoreUtenti.getLista()'],['../interface_gestori_1_1_manager_generale.html#a63e8298a174555b1ab28fd65b062679a',1,'Gestori.ManagerGenerale.getLista()']]],
+  ['getmatricola_13',['getMatricola',['../classmodel_1_1_utente.html#a95d2fb1c118a9dd90c0898254be46d08',1,'model::Utente']]],
+  ['getnome_14',['getNome',['../classmodel_1_1_utente.html#ada8c9babdc2f7f0748a47f354321e684',1,'model::Utente']]],
+  ['getprestitiattivi_15',['getPrestitiAttivi',['../class_gestori_1_1_gestore_prestiti.html#a64b02ddec025628c22aac7e840014ccd',1,'Gestori.GestorePrestiti.getPrestitiAttivi()'],['../classmodel_1_1_utente.html#acdb6d31a53b966086bfed89e3abd72cb',1,'model.Utente.getPrestitiAttivi()']]],
+  ['getprestitidiutente_16',['getPrestitiDiUtente',['../class_gestori_1_1_gestore_prestiti.html#ab3c614c63dfdad0c5319364333ae4f47',1,'Gestori::GestorePrestiti']]],
+  ['gettitolo_17',['getTitolo',['../classmodel_1_1_libro.html#acfe4f78d652231037085c499ccfab597',1,'model::Libro']]],
+  ['getutente_18',['getUtente',['../classmodel_1_1_prestito.html#a9529111a352468139c171c4ad1906f2a',1,'model::Prestito']]]
+];

@@ -1,0 +1,127 @@
+\doxysection{Gestori.\+Gestore\+Libri Class Reference}
+\hypertarget{class_gestori_1_1_gestore_libri}{}\label{class_gestori_1_1_gestore_libri}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+Inheritance diagram for Gestori.\+Gestore\+Libri\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gestori_1_1_gestore_libri}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestori_1_1_gestore_libri_a28d300a205db3bafac930f34eec174f1}{Gestore\+Libri}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestori_1_1_gestore_libri}{Gestore\+Libri}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestori_1_1_gestore_libri_a79bf2da31531055f613bc383966f1f96}{aggiungi}} (\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} libro)
+\begin{DoxyCompactList}\small\item\em Aggiunge un nuovo libro al catalogo. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestori_1_1_gestore_libri_a686460157bcd582d8f9b6d0b0f8acd91}{rimuovi}} (\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} libro)
+\begin{DoxyCompactList}\small\item\em Rimuove un libro dal catalogo. \end{DoxyCompactList}\item 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_libro}{Libro}} $>$ \mbox{\hyperlink{class_gestori_1_1_gestore_libri_a7bc081aba54d1f48ac987bc98fc217a0}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista attuale dei libri. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} \mbox{\hyperlink{class_gestori_1_1_gestore_libri_af7efda344c75b7e682bab274a8491103}{cerca}} (\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un libro specifico nel catalogo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale$<$ Libro $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0}{aggiungi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Aggiunge un nuovo elemento alla collezione gestita. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3}{rimuovi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Rimuove un elemento esistente dalla collezione. \end{DoxyCompactList}\item 
+Observable\+List$<$ T $>$ \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}intera lista degli elementi gestiti. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39}{cerca}} (T oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un elemento specifico nella collezione. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestori_1_1_gestore_libri_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestori_1_1_gestore_libri_a28d300a205db3bafac930f34eec174f1}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}!GestoreLibri@{GestoreLibri}}
+\index{GestoreLibri@{GestoreLibri}!Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+\doxysubsubsection{\texorpdfstring{GestoreLibri()}{GestoreLibri()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_libri_a28d300a205db3bafac930f34eec174f1} 
+Gestori.\+Gestore\+Libri.\+Gestore\+Libri (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestori_1_1_gestore_libri}{Gestore\+Libri}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza la lista dei libri come una collezione vuota. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_gestori_1_1_gestore_libri_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestori_1_1_gestore_libri_a79bf2da31531055f613bc383966f1f96}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}!aggiungi@{aggiungi}}
+\index{aggiungi@{aggiungi}!Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+\doxysubsubsection{\texorpdfstring{aggiungi()}{aggiungi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_libri_a79bf2da31531055f613bc383966f1f96} 
+void Gestori.\+Gestore\+Libri.\+aggiungi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_libro}{Libro}}}]{libro}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aggiunge un nuovo libro al catalogo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em libro} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_libro}{Libro} da inserire nella lista. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestori_1_1_gestore_libri_af7efda344c75b7e682bab274a8491103}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}!cerca@{cerca}}
+\index{cerca@{cerca}!Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+\doxysubsubsection{\texorpdfstring{cerca()}{cerca()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_libri_af7efda344c75b7e682bab274a8491103} 
+\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} Gestori.\+Gestore\+Libri.\+cerca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_libro}{Libro}}}]{oggetto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca un libro specifico nel catalogo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oggetto} & Il libro (o l\textquotesingle{}oggetto con i criteri di ricerca) da trovare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{classmodel_1_1_libro}{Libro} corrispondente se trovato, null altrimenti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_libri_a7bc081aba54d1f48ac987bc98fc217a0}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}!getLista@{getLista}}
+\index{getLista@{getLista}!Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+\doxysubsubsection{\texorpdfstring{getLista()}{getLista()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_libri_a7bc081aba54d1f48ac987bc98fc217a0} 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_libro}{Libro}} $>$ Gestori.\+Gestore\+Libri.\+get\+Lista (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista attuale dei libri. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+La lista contenente i libri. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{class_gestori_1_1_gestore_libri_a686460157bcd582d8f9b6d0b0f8acd91}\index{Gestori.GestoreLibri@{Gestori.GestoreLibri}!rimuovi@{rimuovi}}
+\index{rimuovi@{rimuovi}!Gestori.GestoreLibri@{Gestori.GestoreLibri}}
+\doxysubsubsection{\texorpdfstring{rimuovi()}{rimuovi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_libri_a686460157bcd582d8f9b6d0b0f8acd91} 
+boolean Gestori.\+Gestore\+Libri.\+rimuovi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_libro}{Libro}}}]{libro}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un libro dal catalogo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em libro} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_libro}{Libro} da rimuovere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se l\textquotesingle{}operazione è andata a buon fine, false altrimenti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Gestori/Gestore\+Libri.\+java\end{DoxyCompactItemize}

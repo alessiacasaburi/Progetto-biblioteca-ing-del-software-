@@ -1,0 +1,141 @@
+\doxysection{Gestori.\+Gestore\+Utenti Class Reference}
+\hypertarget{class_gestori_1_1_gestore_utenti}{}\label{class_gestori_1_1_gestore_utenti}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+
+
+Classe responsabile della gestione dell\textquotesingle{}anagrafica utenti.  
+
+
+Inheritance diagram for Gestori.\+Gestore\+Utenti\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gestori_1_1_gestore_utenti}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestori_1_1_gestore_utenti_a00df99e050c1e61306f5d9160c3f05a3}{Gestore\+Utenti}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestori_1_1_gestore_utenti}{Gestore\+Utenti}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestori_1_1_gestore_utenti_ae94df97d6fc8809ccf3bebbc364ab633}{aggiungi}} (\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} utente)
+\begin{DoxyCompactList}\small\item\em Registra un nuovo utente nel sistema. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestori_1_1_gestore_utenti_a18e8b09d54c44ed93f53d2d477da4df9}{rimuovi}} (\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} utente)
+\begin{DoxyCompactList}\small\item\em Rimuove un utente dal sistema. \end{DoxyCompactList}\item 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_utente}{Utente}} $>$ \mbox{\hyperlink{class_gestori_1_1_gestore_utenti_a5ba16fcdba30bf99e825b7291d18d4b3}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista completa degli utenti. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} \mbox{\hyperlink{class_gestori_1_1_gestore_utenti_a1d4f05911c7c0a4d87e1be683148395b}{cerca}} (\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un utente specifico nell\textquotesingle{}anagrafica. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale$<$ Utente $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0}{aggiungi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Aggiunge un nuovo elemento alla collezione gestita. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3}{rimuovi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Rimuove un elemento esistente dalla collezione. \end{DoxyCompactList}\item 
+Observable\+List$<$ T $>$ \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}intera lista degli elementi gestiti. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39}{cerca}} (T oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un elemento specifico nella collezione. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe responsabile della gestione dell\textquotesingle{}anagrafica utenti. 
+
+
+\begin{DoxyItemize}
+\item Mantiene la lista di tutti gli utenti registrati alla biblioteca e permette operazioni di inserimento, rimozione e ricerca.
+\item \begin{DoxyAuthor}{Author}
+Alessandro 
+\end{DoxyAuthor}
+
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_gestori_1_1_gestore_utenti_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestori_1_1_gestore_utenti_a00df99e050c1e61306f5d9160c3f05a3}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}!GestoreUtenti@{GestoreUtenti}}
+\index{GestoreUtenti@{GestoreUtenti}!Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+\doxysubsubsection{\texorpdfstring{GestoreUtenti()}{GestoreUtenti()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_utenti_a00df99e050c1e61306f5d9160c3f05a3} 
+Gestori.\+Gestore\+Utenti.\+Gestore\+Utenti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestori_1_1_gestore_utenti}{Gestore\+Utenti}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza la lista degli utenti come una collezione vuota. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_gestori_1_1_gestore_utenti_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestori_1_1_gestore_utenti_ae94df97d6fc8809ccf3bebbc364ab633}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}!aggiungi@{aggiungi}}
+\index{aggiungi@{aggiungi}!Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+\doxysubsubsection{\texorpdfstring{aggiungi()}{aggiungi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_utenti_ae94df97d6fc8809ccf3bebbc364ab633} 
+void Gestori.\+Gestore\+Utenti.\+aggiungi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_utente}{Utente}}}]{utente}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un nuovo utente nel sistema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em utente} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_utente}{Utente} da aggiungere alla lista. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestori_1_1_gestore_utenti_a1d4f05911c7c0a4d87e1be683148395b}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}!cerca@{cerca}}
+\index{cerca@{cerca}!Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+\doxysubsubsection{\texorpdfstring{cerca()}{cerca()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_utenti_a1d4f05911c7c0a4d87e1be683148395b} 
+\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} Gestori.\+Gestore\+Utenti.\+cerca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_utente}{Utente}}}]{oggetto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca un utente specifico nell\textquotesingle{}anagrafica. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oggetto} & L\textquotesingle{}utente da trovare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{classmodel_1_1_utente}{Utente} trovato, oppure null se non esiste. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_utenti_a5ba16fcdba30bf99e825b7291d18d4b3}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}!getLista@{getLista}}
+\index{getLista@{getLista}!Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+\doxysubsubsection{\texorpdfstring{getLista()}{getLista()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_utenti_a5ba16fcdba30bf99e825b7291d18d4b3} 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_utente}{Utente}} $>$ Gestori.\+Gestore\+Utenti.\+get\+Lista (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista completa degli utenti. 
+
+\begin{DoxyReturn}{Returns}
+La lista contenente gli utenti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_utenti_a18e8b09d54c44ed93f53d2d477da4df9}\index{Gestori.GestoreUtenti@{Gestori.GestoreUtenti}!rimuovi@{rimuovi}}
+\index{rimuovi@{rimuovi}!Gestori.GestoreUtenti@{Gestori.GestoreUtenti}}
+\doxysubsubsection{\texorpdfstring{rimuovi()}{rimuovi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_utenti_a18e8b09d54c44ed93f53d2d477da4df9} 
+boolean Gestori.\+Gestore\+Utenti.\+rimuovi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_utente}{Utente}}}]{utente}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un utente dal sistema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em utente} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_utente}{Utente} da rimuovere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se la rimozione è avvenuta con successo, false altrimenti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Gestori/Gestore\+Utenti.\+java\end{DoxyCompactItemize}

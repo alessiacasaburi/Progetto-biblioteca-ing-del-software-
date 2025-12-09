@@ -1,0 +1,109 @@
+\doxysection{Gestori.\+Manager\+Generale\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Interface Template Reference}
+\hypertarget{interface_gestori_1_1_manager_generale}{}\label{interface_gestori_1_1_manager_generale}\index{Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}}
+
+
+Interfaccia generica per la gestione delle entità del sistema.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0}{aggiungi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Aggiunge un nuovo elemento alla collezione gestita. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3}{rimuovi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Rimuove un elemento esistente dalla collezione. \end{DoxyCompactList}\item 
+Observable\+List$<$ T $>$ \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}intera lista degli elementi gestiti. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39}{cerca}} (T oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un elemento specifico nella collezione. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interfaccia generica per la gestione delle entità del sistema. 
+
+
+\begin{DoxyItemize}
+\item Definisce i metodi fondamentali (CRUD) che ogni classe di gestione (es. \doxylink{class_gestori_1_1_gestore_libri}{Gestore\+Libri}, \doxylink{class_gestori_1_1_gestore_utenti}{Gestore\+Utenti}) deve implementare.
+\item 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Il tipo di oggetto gestito dall\textquotesingle{}implementazione (es. Libro, Utente, Prestito). \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+Alessandro 
+\end{DoxyAuthor}
+
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{interface_gestori_1_1_manager_generale_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0}\index{Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}!aggiungi@{aggiungi}}
+\index{aggiungi@{aggiungi}!Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{aggiungi()}{aggiungi()}}
+{\footnotesize\ttfamily \label{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0} 
+void \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale}}$<$ T $>$.aggiungi (\begin{DoxyParamCaption}\item[{T}]{elemento}{}\end{DoxyParamCaption})}
+
+
+
+Aggiunge un nuovo elemento alla collezione gestita. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elemento} & L\textquotesingle{}oggetto di tipo T da inserire nel sistema. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39}\index{Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}!cerca@{cerca}}
+\index{cerca@{cerca}!Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{cerca()}{cerca()}}
+{\footnotesize\ttfamily \label{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39} 
+T \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale}}$<$ T $>$.cerca (\begin{DoxyParamCaption}\item[{T}]{oggetto}{}\end{DoxyParamCaption})}
+
+
+
+Cerca un elemento specifico nella collezione. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oggetto} & L\textquotesingle{}oggetto da cercare (o un oggetto contenente i criteri di ricerca). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto trovato di tipo T, oppure null se non presente. 
+\end{DoxyReturn}
+\Hypertarget{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a}\index{Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}!getLista@{getLista}}
+\index{getLista@{getLista}!Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getLista()}{getLista()}}
+{\footnotesize\ttfamily \label{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a} 
+Observable\+List$<$ T $>$ \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale}}$<$ T $>$.get\+Lista (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Restituisce l\textquotesingle{}intera lista degli elementi gestiti. 
+
+\begin{DoxyReturn}{Returns}
+Una Observable\+List contenente tutti gli oggetti di tipo T. 
+\end{DoxyReturn}
+\Hypertarget{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3}\index{Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}!rimuovi@{rimuovi}}
+\index{rimuovi@{rimuovi}!Gestori.ManagerGenerale$<$ T $>$@{Gestori.ManagerGenerale$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{rimuovi()}{rimuovi()}}
+{\footnotesize\ttfamily \label{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3} 
+boolean \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale}}$<$ T $>$.rimuovi (\begin{DoxyParamCaption}\item[{T}]{elemento}{}\end{DoxyParamCaption})}
+
+
+
+Rimuove un elemento esistente dalla collezione. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elemento} & L\textquotesingle{}oggetto di tipo T da rimuovere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se l\textquotesingle{}elemento è stato rimosso con successo, false se non trovato o se l\textquotesingle{}operazione fallisce. 
+\end{DoxyReturn}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Gestori/Manager\+Generale.\+java\end{DoxyCompactItemize}

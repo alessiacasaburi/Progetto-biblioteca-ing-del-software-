@@ -1,0 +1,139 @@
+\doxysection{model.\+Prestito Class Reference}
+\hypertarget{classmodel_1_1_prestito}{}\label{classmodel_1_1_prestito}\index{model.Prestito@{model.Prestito}}
+
+
+Rappresenta una transazione di prestito all\textquotesingle{}interno della biblioteca.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmodel_1_1_prestito_a28d7d18a8ed3d753ddd39eeec33bf323}{Prestito}} (\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} utente, \mbox{\hyperlink{classmodel_1_1_libro}{Libro}} libro, Local\+Date data\+Inizio, Local\+Date data\+Scadenza)
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{classmodel_1_1_prestito}{Prestito}. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{classmodel_1_1_prestito_affff1d70299e614c2c51ea40a4621e39}{is\+Prestito\+Attivo}} ()
+\begin{DoxyCompactList}\small\item\em Verifica lo stato attuale del prestito. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} \mbox{\hyperlink{classmodel_1_1_prestito_a9529111a352468139c171c4ad1906f2a}{get\+Utente}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}utente associato a questo prestito. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} \mbox{\hyperlink{classmodel_1_1_prestito_a4fda7483c3b7ef8bd0d5b553c4e877e2}{get\+Libro}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il libro oggetto del prestito. \end{DoxyCompactList}\item 
+Local\+Date \mbox{\hyperlink{classmodel_1_1_prestito_a357620d519308f8790b0595bab0d291d}{get\+Data\+Scadenza}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la data di scadenza del prestito. \end{DoxyCompactList}\item 
+Local\+Date \mbox{\hyperlink{classmodel_1_1_prestito_a535e31f4e67313df42005e88a9194208}{get\+Data\+Inizio}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la data di inizio del prestito. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rappresenta una transazione di prestito all\textquotesingle{}interno della biblioteca. 
+
+
+\begin{DoxyItemize}
+\item Questa classe associa un \doxylink{classmodel_1_1_utente}{Utente} a un \doxylink{classmodel_1_1_libro}{Libro}, tracciando la data di inizio, la data di scadenza prevista e lo stato corrente del prestito (attivo o concluso), la variabile prestito attivo evidenzia velocemente i prestiti in ritardo.
+\item \begin{DoxyAuthor}{Author}
+Alessandro 
+\end{DoxyAuthor}
+
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{classmodel_1_1_prestito_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmodel_1_1_prestito_a28d7d18a8ed3d753ddd39eeec33bf323}\index{model.Prestito@{model.Prestito}!Prestito@{Prestito}}
+\index{Prestito@{Prestito}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{Prestito()}{Prestito()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_a28d7d18a8ed3d753ddd39eeec33bf323} 
+model.\+Prestito.\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_utente}{Utente}}}]{utente}{, }\item[{\mbox{\hyperlink{classmodel_1_1_libro}{Libro}}}]{libro}{, }\item[{Local\+Date}]{data\+Inizio}{, }\item[{Local\+Date}]{data\+Scadenza}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{classmodel_1_1_prestito}{Prestito}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza un nuovo prestito e lo imposta automaticamente come attivo (true).
+\item 
+\begin{DoxyParams}{Parameters}
+{\em utente} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_utente}{Utente} che richiede il prestito. \\
+\hline
+{\em libro} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_libro}{Libro} che viene prestato. \\
+\hline
+{\em data\+Inizio} & La data in cui ha inizio il prestito. \\
+\hline
+{\em data\+Scadenza} & La data entro cui il libro deve essere restituito. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{classmodel_1_1_prestito_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmodel_1_1_prestito_a535e31f4e67313df42005e88a9194208}\index{model.Prestito@{model.Prestito}!getDataInizio@{getDataInizio}}
+\index{getDataInizio@{getDataInizio}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{getDataInizio()}{getDataInizio()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_a535e31f4e67313df42005e88a9194208} 
+Local\+Date model.\+Prestito.\+get\+Data\+Inizio (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la data di inizio del prestito. 
+
+\begin{DoxyReturn}{Returns}
+La data in cui il prestito è stato registrato. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_prestito_a357620d519308f8790b0595bab0d291d}\index{model.Prestito@{model.Prestito}!getDataScadenza@{getDataScadenza}}
+\index{getDataScadenza@{getDataScadenza}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{getDataScadenza()}{getDataScadenza()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_a357620d519308f8790b0595bab0d291d} 
+Local\+Date model.\+Prestito.\+get\+Data\+Scadenza (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la data di scadenza del prestito. 
+
+\begin{DoxyReturn}{Returns}
+La data entro cui il libro va restituito. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_prestito_a4fda7483c3b7ef8bd0d5b553c4e877e2}\index{model.Prestito@{model.Prestito}!getLibro@{getLibro}}
+\index{getLibro@{getLibro}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{getLibro()}{getLibro()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_a4fda7483c3b7ef8bd0d5b553c4e877e2} 
+\mbox{\hyperlink{classmodel_1_1_libro}{Libro}} model.\+Prestito.\+get\+Libro (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il libro oggetto del prestito. 
+
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{classmodel_1_1_libro}{Libro}. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_prestito_a9529111a352468139c171c4ad1906f2a}\index{model.Prestito@{model.Prestito}!getUtente@{getUtente}}
+\index{getUtente@{getUtente}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{getUtente()}{getUtente()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_a9529111a352468139c171c4ad1906f2a} 
+\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} model.\+Prestito.\+get\+Utente (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}utente associato a questo prestito. 
+
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{classmodel_1_1_utente}{Utente}. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_prestito_affff1d70299e614c2c51ea40a4621e39}\index{model.Prestito@{model.Prestito}!isPrestitoAttivo@{isPrestitoAttivo}}
+\index{isPrestitoAttivo@{isPrestitoAttivo}!model.Prestito@{model.Prestito}}
+\doxysubsubsection{\texorpdfstring{isPrestitoAttivo()}{isPrestitoAttivo()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_prestito_affff1d70299e614c2c51ea40a4621e39} 
+boolean model.\+Prestito.\+is\+Prestito\+Attivo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica lo stato attuale del prestito. 
+
+\begin{DoxyReturn}{Returns}
+true se il libro non è ancora stato restituito, false altrimenti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Model/Prestito.\+java\end{DoxyCompactItemize}

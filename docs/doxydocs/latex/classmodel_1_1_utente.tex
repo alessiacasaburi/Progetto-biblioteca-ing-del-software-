@@ -1,0 +1,209 @@
+\doxysection{model.\+Utente Class Reference}
+\hypertarget{classmodel_1_1_utente}{}\label{classmodel_1_1_utente}\index{model.Utente@{model.Utente}}
+
+
+Rappresenta un utente registrato nella biblioteca.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmodel_1_1_utente_af530af2b5e827cd60293f468aad30812}{Utente}} (String matricola, String nome, String cognome, String email)
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{classmodel_1_1_utente}{Utente}. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_utente_a95d2fb1c118a9dd90c0898254be46d08}{get\+Matricola}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la matricola dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_utente_ada8c9babdc2f7f0748a47f354321e684}{get\+Nome}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il nome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_utente_a8b219a038b6c2754c7a11f6d1af82a43}{set\+Nome}} (String nome)
+\begin{DoxyCompactList}\small\item\em Imposta un nuovo nome per l\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_utente_af3219455fef0d2fa959bfc03c7c3ae7c}{get\+Cognome}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il cognome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_utente_aa8d7650671d4ad73a80e6b4479cd681b}{set\+Cognome}} (String cognome)
+\begin{DoxyCompactList}\small\item\em Imposta un nuovo cognome per l\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_utente_ae24e0c76440afc40216978e5cbe14db5}{get\+Email}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}email dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_utente_a3c8b6e587b9bef039ef493285df34e7d}{set\+Email}} (String email)
+\begin{DoxyCompactList}\small\item\em Imposta un nuovo indirizzo email per l\textquotesingle{}utente. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{classmodel_1_1_utente_acdb6d31a53b966086bfed89e3abd72cb}{get\+Prestiti\+Attivi}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista dei prestiti attivi dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{classmodel_1_1_utente_aad522b90fad3f30799c8be47f21e04f6}{verificamailmatr}} ()
+\begin{DoxyCompactList}\small\item\em Verifica la validità della matricola o dell\textquotesingle{}email. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rappresenta un utente registrato nella biblioteca. 
+
+
+\begin{DoxyItemize}
+\item Questa classe gestisce i dati anagrafici dell\textquotesingle{}utente (nome, cognome, matricola, email) e mantiene la lista dei prestiti attualmente attivi associati all\textquotesingle{}utente stesso.
+\item \begin{DoxyAuthor}{Author}
+Alessandro 
+\end{DoxyAuthor}
+
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{classmodel_1_1_utente_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmodel_1_1_utente_af530af2b5e827cd60293f468aad30812}\index{model.Utente@{model.Utente}!Utente@{Utente}}
+\index{Utente@{Utente}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{Utente()}{Utente()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_af530af2b5e827cd60293f468aad30812} 
+model.\+Utente.\+Utente (\begin{DoxyParamCaption}\item[{String}]{matricola}{, }\item[{String}]{nome}{, }\item[{String}]{cognome}{, }\item[{String}]{email}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{classmodel_1_1_utente}{Utente}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza un nuovo utente con i dati forniti e crea una lista vuota per i prestiti.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em matricola} & Il codice identificativo univoco (es. numero di matricola universitaria). \\
+\hline
+{\em nome} & Il nome dell\textquotesingle{}utente. \\
+\hline
+{\em cognome} & Il cognome dell\textquotesingle{}utente. \\
+\hline
+{\em email} & L\textquotesingle{}indirizzo email dell\textquotesingle{}utente. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{classmodel_1_1_utente_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmodel_1_1_utente_af3219455fef0d2fa959bfc03c7c3ae7c}\index{model.Utente@{model.Utente}!getCognome@{getCognome}}
+\index{getCognome@{getCognome}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{getCognome()}{getCognome()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_af3219455fef0d2fa959bfc03c7c3ae7c} 
+String model.\+Utente.\+get\+Cognome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il cognome dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Il cognome dell\textquotesingle{}utente. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_utente_ae24e0c76440afc40216978e5cbe14db5}\index{model.Utente@{model.Utente}!getEmail@{getEmail}}
+\index{getEmail@{getEmail}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{getEmail()}{getEmail()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_ae24e0c76440afc40216978e5cbe14db5} 
+String model.\+Utente.\+get\+Email (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}email dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}indirizzo email. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_utente_a95d2fb1c118a9dd90c0898254be46d08}\index{model.Utente@{model.Utente}!getMatricola@{getMatricola}}
+\index{getMatricola@{getMatricola}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{getMatricola()}{getMatricola()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_a95d2fb1c118a9dd90c0898254be46d08} 
+String model.\+Utente.\+get\+Matricola (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la matricola dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Una stringa che rappresenta la matricola. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_utente_ada8c9babdc2f7f0748a47f354321e684}\index{model.Utente@{model.Utente}!getNome@{getNome}}
+\index{getNome@{getNome}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{getNome()}{getNome()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_ada8c9babdc2f7f0748a47f354321e684} 
+String model.\+Utente.\+get\+Nome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il nome dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Il nome dell\textquotesingle{}utente. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_utente_acdb6d31a53b966086bfed89e3abd72cb}\index{model.Utente@{model.Utente}!getPrestitiAttivi@{getPrestitiAttivi}}
+\index{getPrestitiAttivi@{getPrestitiAttivi}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{getPrestitiAttivi()}{getPrestitiAttivi()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_acdb6d31a53b966086bfed89e3abd72cb} 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ model.\+Utente.\+get\+Prestiti\+Attivi (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista dei prestiti attivi dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Una lista di oggetti di tipo \doxylink{classmodel_1_1_prestito}{Prestito}. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_utente_aa8d7650671d4ad73a80e6b4479cd681b}\index{model.Utente@{model.Utente}!setCognome@{setCognome}}
+\index{setCognome@{setCognome}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{setCognome()}{setCognome()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_aa8d7650671d4ad73a80e6b4479cd681b} 
+void model.\+Utente.\+set\+Cognome (\begin{DoxyParamCaption}\item[{String}]{cognome}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta un nuovo cognome per l\textquotesingle{}utente. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cognome} & Il nuovo cognome da assegnare. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmodel_1_1_utente_a3c8b6e587b9bef039ef493285df34e7d}\index{model.Utente@{model.Utente}!setEmail@{setEmail}}
+\index{setEmail@{setEmail}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{setEmail()}{setEmail()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_a3c8b6e587b9bef039ef493285df34e7d} 
+void model.\+Utente.\+set\+Email (\begin{DoxyParamCaption}\item[{String}]{email}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta un nuovo indirizzo email per l\textquotesingle{}utente. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & La nuova email da assegnare. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmodel_1_1_utente_a8b219a038b6c2754c7a11f6d1af82a43}\index{model.Utente@{model.Utente}!setNome@{setNome}}
+\index{setNome@{setNome}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{setNome()}{setNome()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_a8b219a038b6c2754c7a11f6d1af82a43} 
+void model.\+Utente.\+set\+Nome (\begin{DoxyParamCaption}\item[{String}]{nome}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta un nuovo nome per l\textquotesingle{}utente. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nome} & Il nuovo nome da assegnare. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmodel_1_1_utente_aad522b90fad3f30799c8be47f21e04f6}\index{model.Utente@{model.Utente}!verificamailmatr@{verificamailmatr}}
+\index{verificamailmatr@{verificamailmatr}!model.Utente@{model.Utente}}
+\doxysubsubsection{\texorpdfstring{verificamailmatr()}{verificamailmatr()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_utente_aad522b90fad3f30799c8be47f21e04f6} 
+boolean model.\+Utente.\+verificamailmatr (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica la validità della matricola o dell\textquotesingle{}email. 
+
+
+\begin{DoxyItemize}
+\item Controlla se il formato della matricola o dell\textquotesingle{}email rispetta i criteri stabiliti.
+\item \begin{DoxyReturn}{Returns}
+true se i dati sono validi, false altrimenti. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Model/Utente.\+java\end{DoxyCompactItemize}

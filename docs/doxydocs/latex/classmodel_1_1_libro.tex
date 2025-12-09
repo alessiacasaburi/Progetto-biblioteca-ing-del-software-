@@ -1,0 +1,241 @@
+\doxysection{model.\+Libro Class Reference}
+\hypertarget{classmodel_1_1_libro}{}\label{classmodel_1_1_libro}\index{model.Libro@{model.Libro}}
+
+
+Rappresenta un libro nel catalogo della biblioteca.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmodel_1_1_libro_ab68cdfcf084f71b42d0c65cf1e877ccf}{Libro}} (String isbn, String titolo, List$<$ String $>$ autori, int anno\+Pubblicazione, int copie\+Disponibili)
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{classmodel_1_1_libro}{Libro}. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_libro_acfe4f78d652231037085c499ccfab597}{get\+Titolo}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il titolo del libro. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_libro_a48fbaa197fbff2b9338dd6c52a977b61}{set\+Titolo}} (String titolo)
+\begin{DoxyCompactList}\small\item\em Imposta un nuovo titolo per il libro. \end{DoxyCompactList}\item 
+List$<$ String $>$ \mbox{\hyperlink{classmodel_1_1_libro_ad42bb1401253c57526dd79bb765a6c04}{get\+Autori}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista degli autori. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_libro_a00f416b7fb19c17d26cfde8b707b45e6}{set\+Autori}} (List$<$ String $>$ autori)
+\begin{DoxyCompactList}\small\item\em Imposta la lista degli autori. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmodel_1_1_libro_ac83b9bc0899b57861ff373060a84c91d}{get\+Anno\+Pubblicazione}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}anno di pubblicazione. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{classmodel_1_1_libro_aad3ec40164cecb5ba545fa76e05b672e}{get\+Isbn}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il codice ISBN. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmodel_1_1_libro_aeaeb7149861cdfbc4145dd9a41cf35b8}{get\+Copie\+Disponibili}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il numero di copie attualmente disponibili. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_libro_a974b0ae84455984e77fe3dccbc0c5bc9}{set\+Copie\+Disponibili}} (int n)
+\begin{DoxyCompactList}\small\item\em Imposta manualmente il numero di copie disponibili. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{classmodel_1_1_libro_ab256ac99650880097f5cd22ba63829ec}{is\+Disponibile}} ()
+\begin{DoxyCompactList}\small\item\em Verifica se il libro è disponibile per il prestito. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_libro_a36f292612f743eca14355bf97f6b11ba}{incrementa\+Disponibilita}} ()
+\begin{DoxyCompactList}\small\item\em Aumenta di una unità il numero di copie disponibili. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmodel_1_1_libro_aee3d821d77f4eb067d8ecf3a9bf89130}{decrementa\+Disponibilita}} ()
+\begin{DoxyCompactList}\small\item\em Diminuisce di una unità il numero di copie disponibili. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rappresenta un libro nel catalogo della biblioteca. 
+
+
+\begin{DoxyItemize}
+\item Questa classe contiene le informazioni principali (titolo, autori, ISBN, annodipublicazione) e gestisce anche le disponibilità.
+\item \begin{DoxyAuthor}{Author}
+Alessandro 
+\end{DoxyAuthor}
+
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{classmodel_1_1_libro_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmodel_1_1_libro_ab68cdfcf084f71b42d0c65cf1e877ccf}\index{model.Libro@{model.Libro}!Libro@{Libro}}
+\index{Libro@{Libro}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{Libro()}{Libro()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_ab68cdfcf084f71b42d0c65cf1e877ccf} 
+model.\+Libro.\+Libro (\begin{DoxyParamCaption}\item[{String}]{isbn}{, }\item[{String}]{titolo}{, }\item[{List$<$ String $>$}]{autori}{, }\item[{int}]{anno\+Pubblicazione}{, }\item[{int}]{copie\+Disponibili}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{classmodel_1_1_libro}{Libro}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza un nuovooggetto della classe librpo e il numero iniziale di copie.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em isbn} & Il codice ISBN univoco del libro. \\
+\hline
+{\em titolo} & Il titolo del libro. \\
+\hline
+{\em autori} & La lista degli autori del libro. \\
+\hline
+{\em anno\+Pubblicazione} & L\textquotesingle{}anno in cui il libro è stato pubblicato. \\
+\hline
+{\em copie\+Disponibili} & Il numero di copie fisiche disponibili per il prestito. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{classmodel_1_1_libro_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmodel_1_1_libro_aee3d821d77f4eb067d8ecf3a9bf89130}\index{model.Libro@{model.Libro}!decrementaDisponibilita@{decrementaDisponibilita}}
+\index{decrementaDisponibilita@{decrementaDisponibilita}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{decrementaDisponibilita()}{decrementaDisponibilita()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_aee3d821d77f4eb067d8ecf3a9bf89130} 
+void model.\+Libro.\+decrementa\+Disponibilita (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Diminuisce di una unità il numero di copie disponibili. 
+
+
+\begin{DoxyItemize}
+\item Da utilizzare quando viene registrato un nuovo prestito. 
+\end{DoxyItemize}\Hypertarget{classmodel_1_1_libro_ac83b9bc0899b57861ff373060a84c91d}\index{model.Libro@{model.Libro}!getAnnoPubblicazione@{getAnnoPubblicazione}}
+\index{getAnnoPubblicazione@{getAnnoPubblicazione}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{getAnnoPubblicazione()}{getAnnoPubblicazione()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_ac83b9bc0899b57861ff373060a84c91d} 
+int model.\+Libro.\+get\+Anno\+Pubblicazione (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}anno di pubblicazione. 
+
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}anno come intero. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_libro_ad42bb1401253c57526dd79bb765a6c04}\index{model.Libro@{model.Libro}!getAutori@{getAutori}}
+\index{getAutori@{getAutori}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{getAutori()}{getAutori()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_ad42bb1401253c57526dd79bb765a6c04} 
+List$<$ String $>$ model.\+Libro.\+get\+Autori (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista degli autori. 
+
+\begin{DoxyReturn}{Returns}
+Una lista di stringhe con i nomi degli autori. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_libro_aeaeb7149861cdfbc4145dd9a41cf35b8}\index{model.Libro@{model.Libro}!getCopieDisponibili@{getCopieDisponibili}}
+\index{getCopieDisponibili@{getCopieDisponibili}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{getCopieDisponibili()}{getCopieDisponibili()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_aeaeb7149861cdfbc4145dd9a41cf35b8} 
+int model.\+Libro.\+get\+Copie\+Disponibili (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il numero di copie attualmente disponibili. 
+
+\begin{DoxyReturn}{Returns}
+Il numero di copie disponibili. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_libro_aad3ec40164cecb5ba545fa76e05b672e}\index{model.Libro@{model.Libro}!getIsbn@{getIsbn}}
+\index{getIsbn@{getIsbn}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{getIsbn()}{getIsbn()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_aad3ec40164cecb5ba545fa76e05b672e} 
+String model.\+Libro.\+get\+Isbn (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il codice ISBN. 
+
+\begin{DoxyReturn}{Returns}
+Una stringa contenente l\textquotesingle{}ISBN. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_libro_acfe4f78d652231037085c499ccfab597}\index{model.Libro@{model.Libro}!getTitolo@{getTitolo}}
+\index{getTitolo@{getTitolo}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{getTitolo()}{getTitolo()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_acfe4f78d652231037085c499ccfab597} 
+String model.\+Libro.\+get\+Titolo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il titolo del libro. 
+
+\begin{DoxyReturn}{Returns}
+Una stringa contenente il titolo. 
+\end{DoxyReturn}
+\Hypertarget{classmodel_1_1_libro_a36f292612f743eca14355bf97f6b11ba}\index{model.Libro@{model.Libro}!incrementaDisponibilita@{incrementaDisponibilita}}
+\index{incrementaDisponibilita@{incrementaDisponibilita}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{incrementaDisponibilita()}{incrementaDisponibilita()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_a36f292612f743eca14355bf97f6b11ba} 
+void model.\+Libro.\+incrementa\+Disponibilita (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aumenta di una unità il numero di copie disponibili. 
+
+
+\begin{DoxyItemize}
+\item Da utilizzare quando un libro viene restituito. 
+\end{DoxyItemize}\Hypertarget{classmodel_1_1_libro_ab256ac99650880097f5cd22ba63829ec}\index{model.Libro@{model.Libro}!isDisponibile@{isDisponibile}}
+\index{isDisponibile@{isDisponibile}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{isDisponibile()}{isDisponibile()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_ab256ac99650880097f5cd22ba63829ec} 
+boolean model.\+Libro.\+is\+Disponibile (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica se il libro è disponibile per il prestito. 
+
+
+\begin{DoxyItemize}
+\item Controlla se il numero di copie disponibili è maggiore di zero.
+\item \begin{DoxyReturn}{Returns}
+true se ci sono copie disponibili, false altrimenti. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classmodel_1_1_libro_a00f416b7fb19c17d26cfde8b707b45e6}\index{model.Libro@{model.Libro}!setAutori@{setAutori}}
+\index{setAutori@{setAutori}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{setAutori()}{setAutori()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_a00f416b7fb19c17d26cfde8b707b45e6} 
+void model.\+Libro.\+set\+Autori (\begin{DoxyParamCaption}\item[{List$<$ String $>$}]{autori}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta la lista degli autori. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em autori} & La nuova lista di autori. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmodel_1_1_libro_a974b0ae84455984e77fe3dccbc0c5bc9}\index{model.Libro@{model.Libro}!setCopieDisponibili@{setCopieDisponibili}}
+\index{setCopieDisponibili@{setCopieDisponibili}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{setCopieDisponibili()}{setCopieDisponibili()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_a974b0ae84455984e77fe3dccbc0c5bc9} 
+void model.\+Libro.\+set\+Copie\+Disponibili (\begin{DoxyParamCaption}\item[{int}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta manualmente il numero di copie disponibili. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Il nuovo numero di copie. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmodel_1_1_libro_a48fbaa197fbff2b9338dd6c52a977b61}\index{model.Libro@{model.Libro}!setTitolo@{setTitolo}}
+\index{setTitolo@{setTitolo}!model.Libro@{model.Libro}}
+\doxysubsubsection{\texorpdfstring{setTitolo()}{setTitolo()}}
+{\footnotesize\ttfamily \label{classmodel_1_1_libro_a48fbaa197fbff2b9338dd6c52a977b61} 
+void model.\+Libro.\+set\+Titolo (\begin{DoxyParamCaption}\item[{String}]{titolo}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta un nuovo titolo per il libro. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em titolo} & Il nuovo titolo da assegnare. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Model/Libro.\+java\end{DoxyCompactItemize}

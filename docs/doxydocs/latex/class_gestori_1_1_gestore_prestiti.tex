@@ -1,0 +1,159 @@
+\doxysection{Gestori.\+Gestore\+Prestiti Class Reference}
+\hypertarget{class_gestori_1_1_gestore_prestiti}{}\label{class_gestori_1_1_gestore_prestiti}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+Inheritance diagram for Gestori.\+Gestore\+Prestiti\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gestori_1_1_gestore_prestiti}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_a8f8de5aa0edc43abe1535ce78a7f7967}{Gestore\+Prestiti}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestori_1_1_gestore_prestiti}{Gestore\+Prestiti}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_ac4b1a3e5ea9c1e4c3058188c7909a9e7}{aggiungi}} (\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} prestito)
+\begin{DoxyCompactList}\small\item\em Registra un nuovo prestito nel sistema. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_a2a9aa0cb36c1a398160c4e408f087e91}{rimuovi}} (\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} prestito)
+\begin{DoxyCompactList}\small\item\em Rimuove un prestito dal sistema. \end{DoxyCompactList}\item 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_a719fcd6867080eb8f8c19073bb2bfaea}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista completa dei prestiti. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_a9e3d86876753a544840ea40eee62bced}{cerca}} (\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un prestito specifico. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_ab3c614c63dfdad0c5319364333ae4f47}{get\+Prestiti\+Di\+Utente}} (\mbox{\hyperlink{classmodel_1_1_utente}{Utente}} utente)
+\begin{DoxyCompactList}\small\item\em Filtra i prestiti associati a un determinato utente. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestori_1_1_gestore_prestiti_a64b02ddec025628c22aac7e840014ccd}{get\+Prestiti\+Attivi}} ()
+\begin{DoxyCompactList}\small\item\em Filtra i prestiti attualmente attivi (non ancora restituiti). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interface_gestori_1_1_manager_generale}{Gestori.\+Manager\+Generale$<$ Prestito $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a3633c93fd03f98a1a1e24db9dfd025d0}{aggiungi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Aggiunge un nuovo elemento alla collezione gestita. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{interface_gestori_1_1_manager_generale_aa1bb6f7baa040e20ed9b8278d48bfbd3}{rimuovi}} (T elemento)
+\begin{DoxyCompactList}\small\item\em Rimuove un elemento esistente dalla collezione. \end{DoxyCompactList}\item 
+Observable\+List$<$ T $>$ \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a63e8298a174555b1ab28fd65b062679a}{get\+Lista}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}intera lista degli elementi gestiti. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{interface_gestori_1_1_manager_generale_a4a149bd4faca234cadcff64ff8b9ce39}{cerca}} (T oggetto)
+\begin{DoxyCompactList}\small\item\em Cerca un elemento specifico nella collezione. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_a8f8de5aa0edc43abe1535ce78a7f7967}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!GestorePrestiti@{GestorePrestiti}}
+\index{GestorePrestiti@{GestorePrestiti}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{GestorePrestiti()}{GestorePrestiti()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_a8f8de5aa0edc43abe1535ce78a7f7967} 
+Gestori.\+Gestore\+Prestiti.\+Gestore\+Prestiti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestori_1_1_gestore_prestiti}{Gestore\+Prestiti}. 
+
+
+\begin{DoxyItemize}
+\item Inizializza la collezione dei prestiti. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_ac4b1a3e5ea9c1e4c3058188c7909a9e7}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!aggiungi@{aggiungi}}
+\index{aggiungi@{aggiungi}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{aggiungi()}{aggiungi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_ac4b1a3e5ea9c1e4c3058188c7909a9e7} 
+void Gestori.\+Gestore\+Prestiti.\+aggiungi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}}}]{prestito}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un nuovo prestito nel sistema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prestito} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_prestito}{Prestito} da aggiungere alla lista. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_a9e3d86876753a544840ea40eee62bced}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!cerca@{cerca}}
+\index{cerca@{cerca}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{cerca()}{cerca()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_a9e3d86876753a544840ea40eee62bced} 
+\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} Gestori.\+Gestore\+Prestiti.\+cerca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}}}]{oggetto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca un prestito specifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oggetto} & Il prestito da cercare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{classmodel_1_1_prestito}{Prestito} trovato, oppure null. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_a719fcd6867080eb8f8c19073bb2bfaea}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!getLista@{getLista}}
+\index{getLista@{getLista}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{getLista()}{getLista()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_a719fcd6867080eb8f8c19073bb2bfaea} 
+Observable\+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ Gestori.\+Gestore\+Prestiti.\+get\+Lista (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista completa dei prestiti. 
+
+\begin{DoxyReturn}{Returns}
+La Observable\+List contenente lo storico dei prestiti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_a64b02ddec025628c22aac7e840014ccd}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!getPrestitiAttivi@{getPrestitiAttivi}}
+\index{getPrestitiAttivi@{getPrestitiAttivi}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{getPrestitiAttivi()}{getPrestitiAttivi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_a64b02ddec025628c22aac7e840014ccd} 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ Gestori.\+Gestore\+Prestiti.\+get\+Prestiti\+Attivi (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Filtra i prestiti attualmente attivi (non ancora restituiti). 
+
+\begin{DoxyReturn}{Returns}
+Una lista contenente solo i prestiti con stato attivo. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_ab3c614c63dfdad0c5319364333ae4f47}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!getPrestitiDiUtente@{getPrestitiDiUtente}}
+\index{getPrestitiDiUtente@{getPrestitiDiUtente}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{getPrestitiDiUtente()}{getPrestitiDiUtente()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_ab3c614c63dfdad0c5319364333ae4f47} 
+List$<$ \mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}} $>$ Gestori.\+Gestore\+Prestiti.\+get\+Prestiti\+Di\+Utente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_utente}{Utente}}}]{utente}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Filtra i prestiti associati a un determinato utente. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em utente} & L\textquotesingle{}utente di cui si vogliono visualizzare i prestiti. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Una lista di prestiti effettuati dall\textquotesingle{}utente specificato. 
+\end{DoxyReturn}
+\Hypertarget{class_gestori_1_1_gestore_prestiti_a2a9aa0cb36c1a398160c4e408f087e91}\index{Gestori.GestorePrestiti@{Gestori.GestorePrestiti}!rimuovi@{rimuovi}}
+\index{rimuovi@{rimuovi}!Gestori.GestorePrestiti@{Gestori.GestorePrestiti}}
+\doxysubsubsection{\texorpdfstring{rimuovi()}{rimuovi()}}
+{\footnotesize\ttfamily \label{class_gestori_1_1_gestore_prestiti_a2a9aa0cb36c1a398160c4e408f087e91} 
+boolean Gestori.\+Gestore\+Prestiti.\+rimuovi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmodel_1_1_prestito}{Prestito}}}]{prestito}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un prestito dal sistema. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prestito} & L\textquotesingle{}oggetto \doxylink{classmodel_1_1_prestito}{Prestito} da rimuovere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se la rimozione ha successo, false altrimenti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Gestione\+Biblioteca/src/main/java/\+Gestori/Gestore\+Prestiti.\+java\end{DoxyCompactItemize}
