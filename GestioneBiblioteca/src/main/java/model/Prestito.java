@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -43,6 +43,14 @@ public class Prestito {
      */
     public boolean isPrestitoAttivo() {
         return prestitoAttivo;
+    }
+    /**
+     * @brief Modifica lo stato del prestito.
+     * * Utilizzato principalmente per chiudere un prestito (impostandolo a false) al momento della restituzione.
+     * * @param prestitoAttivo true per renderlo attivo, false per indicare che è concluso.
+     */
+    public void setPrestitoAttivo(boolean prestitoAttivo){
+        this.prestitoAttivo = prestitoAttivo;
     }
     
     /**
