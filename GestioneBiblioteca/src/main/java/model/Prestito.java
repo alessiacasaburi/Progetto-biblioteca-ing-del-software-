@@ -44,6 +44,14 @@ public class Prestito {
     public boolean isPrestitoAttivo() {
         return prestitoAttivo;
     }
+    /**
+     * @brief Modifica lo stato del prestito.
+     * * Utilizzato principalmente per chiudere un prestito (impostandolo a false) al momento della restituzione.
+     * * @param prestitoAttivo true per renderlo attivo, false per indicare che è concluso.
+     */
+    public void setPrestitoAttivo(boolean prestitoAttivo){
+        this.prestitoAttivo = prestitoAttivo;
+    }
     
     /**
      * @brief Restituisce l'utente associato a questo prestito.

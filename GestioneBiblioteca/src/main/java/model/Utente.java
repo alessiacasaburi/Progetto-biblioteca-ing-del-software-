@@ -104,11 +104,16 @@ public class Utente {
     
     /**
      * @brief Verifica la validità della matricola o dell'email.
-     * * Controlla se il formato della matricola o dell'email rispetta i criteri stabiliti.
+     * * Controlla se i formati della matricola e dell'email rispettano i criteri stabiliti.
      * * @return true se i dati sono validi, false altrimenti.
      */
     public boolean verificamailmatr() {
-        // TODO: Implementare logica di validazione regex o controllo DB
-        return false; 
-    }
+       if(this.matricola== null|| !this.matricola.matches("\\d{10}")){
+           throw new IllegalArgumentException("Matricola non valida");
+        }
+       if(!this.email.endsWith("@unisa.it")&& this.email.endsWith("@studenti.unisa.it")){
+           throw new IllegalArgumentException("Email non valida");
+        }
+       return true;
+    }   
 }
