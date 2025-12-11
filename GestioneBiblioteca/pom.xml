@@ -11,13 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<<<<<<< HEAD
+
         <maven.compiler.release>8</maven.compiler.release>
         <exec.mainClass>unisa.mavenproject1.Mavenproject1</exec.mainClass>
-=======
-        <maven.compiler.release>21</maven.compiler.release>
-        <javafx.version>21.0.1</javafx.version>
->>>>>>> 9a58cfe6df1d949b740905ad6a984a7fefb72584
+
     </properties>
 
     <dependencies>
