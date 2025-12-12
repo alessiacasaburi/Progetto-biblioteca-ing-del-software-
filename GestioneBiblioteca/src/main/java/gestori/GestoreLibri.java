@@ -30,7 +30,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
     
     /**
      * @brief implementazione della ricerca testuale
-     * * @param testo stringa il quale contenuto rappresenta la nostra ricerca
+     * @param testo stringa il quale contenuto rappresenta la nostra ricerca
      * La stringa passata come parametro viene coonfrontata con tutti i titoli autori e isbn dei libri presenti nella biblioteca.
      * @return Una ObservableList contenente solo i libri che hanno una congruenza con la stringa passata.
      */

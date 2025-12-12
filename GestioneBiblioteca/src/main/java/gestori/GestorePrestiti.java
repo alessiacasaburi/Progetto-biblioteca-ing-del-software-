@@ -56,17 +56,22 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
      * successivamente aggiorna la lista dei prestiti generale e la lista dei prestiti dell'utente.
      */
     @Override
-    public void aggiungi(Prestito prestito) throws Exception {
-        Utente u = prestito.getUtente();
-        Libro l = prestito.getLibro();
+    public void aggiungi(Prestito prestito) {
+        try {
+            Utente u = prestito.getUtente();
+            Libro l = prestito.getLibro();
 
-        u.verificaPrestitiAttivi();
-        l.isDisponibile(); 
-        l.decrementaDisponibilita();
-        u.aggiungiPrestito(prestito); 
-        listaPrestiti.add(prestito);
+            u.verificaPrestitiAttivi(); 
+            l.isDisponibile(); 
+
+            l.decrementaDisponibilita();
+            u.aggiungiPrestito(prestito); 
+            listaPrestiti.add(prestito);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
-    
     /**
      * @brief Restituisce la lista dei prestiti.
      */
