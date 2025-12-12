@@ -45,25 +45,18 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
         String testoLower = testo.toLowerCase();
 
         for (Libro l : listaLibri) {
-            boolean trovato = false;
-
-            if (l.getTitolo().toLowerCase().contains(testoLower)) {
-                trovato = true;
-            }
+            boolean matchTitolo = l.getTitolo().toLowerCase().contains(testoLower);
+            boolean matchISBN = l.getIsbn().toLowerCase().contains(testoLower);
             
-            else if (l.getIsbn().toLowerCase().contains(testoLower)) {
-                trovato = true;
-            }
-           
-            else {
-                for (String autore : l.getAutori()) {
-                    if (autore.toLowerCase().contains(testoLower)) {
-                        trovato = true;
-                        break; 
-                    }
+            boolean matchAutori = false;
+            for (String autore : l.getAutori()) {
+                if (autore.toLowerCase().contains(testoLower)) {
+                    matchAutori = true;
+                    break; 
                 }
             }
-            if (trovato) {
+
+            if (matchTitolo || matchISBN || matchAutori) {
                 risultati.add(l);
             }
         }
@@ -77,7 +70,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
      * che il codice isbn sia univoco confrontandolo nella lista libri
      */
     @Override
-  public void aggiungi(Libro libro) {
+    public void aggiungi(Libro libro) {
         if (libro.getIsbn() == null || libro.getIsbn().isEmpty()) {
             throw new IllegalArgumentException("L'ISBN non può essere vuoto.");
         }
