@@ -4,17 +4,14 @@
  */
 package gestori;
 
-/**
- * @brief Classe responsabile della gestione delle operazioni di prestito.
- * * Mantiene lo storico dei prestiti, permette di aggiungerne di nuovi e fornisce
- * funzionalità di ricerca e filtro per utente o stato del prestito.
- * * @author Alessandro
- */
 import model.*;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * @brief Classe responsabile della gestione delle operazioni di prestito.
+ * @author Annamaria
+ */
 public class GestorePrestiti implements ManagerGenerale<Prestito> {
 
     /** Lista contenente tutti i prestiti gestiti. */
@@ -22,68 +19,88 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
 
     /**
      * @brief Costruttore della classe GestorePrestiti.
-     * * Inizializza la collezione dei prestiti.
      */
     public GestorePrestiti() {
         this.listaPrestiti = FXCollections.observableArrayList();
     }
-
+    
     /**
+     * @brief Gestisce la RESTITUZIONE del libro.
+     * @param prestito il prestito da terminare
+     */
+    public void terminaPrestito(Prestito prestito) {
+        if (prestito.isPrestitoAttivo()) {
+            prestito.setPrestitoConcluso();
+            prestito.getLibro().incrementaDisponibilita();
+        }
+    }
+  
+    
+    /**
+     * @brief Restituisce solo i prestiti attualmente attivi (non restituiti).
+     */
+    public ObservableList<Prestito> getPrestitiAttivi() {
+        ObservableList<Prestito> attivi = FXCollections.observableArrayList();
+        for (Prestito p : listaPrestiti) {
+            if (p.isPrestitoAttivo()) {
+                attivi.add(p);
+            }
+        }
+        return attivi;
+    }
+    
+     /**
      * @brief Registra un nuovo prestito nel sistema.
-     * @param prestito L'oggetto Prestito da aggiungere alla lista.
+     * @param prestito il prestito da registrare nel sistema.
+     * Verifica che l'utente non abbia più di 3 prestiti attivi e che il libro sia disponibile,
+     * successivamente aggiorna la lista dei prestiti generale e la lista dei prestiti dell'utente.
      */
     @Override
-    public void aggiungi(Prestito prestito) {
-        // TODO: Implementare 
-    }
+    public void aggiungi(Prestito prestito) throws Exception {
+        Utente u = prestito.getUtente();
+        Libro l = prestito.getLibro();
 
-    /**
-     * @brief Rimuove un prestito dal sistema.
-     * @param prestito L'oggetto Prestito da rimuovere.
-     * @return true se la rimozione ha successo, false altrimenti.
-     */
-    @Override
-    public boolean rimuovi(Prestito prestito) {
-        // TODO: Implementare 
-        return false;
+        u.verificaPrestitiAttivi();
+        l.isDisponibile(); 
+        l.decrementaDisponibilita();
+        u.aggiungiPrestito(prestito); 
+        listaPrestiti.add(prestito);
     }
-
+    
     /**
-     * @brief Restituisce la lista completa dei prestiti.
-     * @return La ObservableList contenente lo storico dei prestiti.
+     * @brief Restituisce la lista dei prestiti.
      */
     @Override
     public ObservableList<Prestito> getLista() {
         return listaPrestiti;
     }
-
-    /**
-     * @brief Cerca un prestito specifico.
-     * @param oggetto Il prestito da cercare.
-     * @return L'oggetto Prestito trovato, oppure null.
+    
+     /**
+     * @brief Cerca un prestito nel sistema.
+     * @param oggetto il prestito da cercare.
+     * Scorre tutta la lista e verifica se esiste un prestito con gli stessi parametri matricola,
+     * ISBN e data di inizio.
      */
     @Override
     public Prestito cerca(Prestito oggetto) {
-        // TODO: Implementare 
-        return null;
+       
+        for (Prestito p : listaPrestiti) {
+            if (p.getUtente().getMatricola().equals(oggetto.getUtente().getMatricola()) &&
+                p.getLibro().getIsbn().equals(oggetto.getLibro().getIsbn()) &&
+                p.getDataInizio().isEqual(oggetto.getDataInizio())) {
+                return p;
+            }
+        }
+       return null;
     }
-
+    
     /**
-     * @brief Filtra i prestiti associati a un determinato utente.
-     * @param utente L'utente di cui si vogliono visualizzare i prestiti.
-     * @return Una lista di prestiti effettuati dall'utente specificato.
+     * @brief Rimuove un prestito dalla lista prestiti (Cancellazione completa).
+     * Usare 'terminaPrestito' per le restituzioni normali.
+     * @param prestito il prestito da rimuovere
      */
-    public List<Prestito> getPrestitiDiUtente(Utente utente) {
-        // TODO: Implementare 
-        return null;
+    @Override
+    public boolean rimuovi(Prestito prestito) {
+        return listaPrestiti.remove(prestito);
     }
-
-    /**
-     * @brief Filtra i prestiti attualmente attivi (non ancora restituiti).
-     * @return Una lista contenente solo i prestiti con stato attivo.
-     */
-    public List<Prestito> getPrestitiAttivi() {
-        // TODO: Implementare 
-        return null;
-    }
-}
+ }

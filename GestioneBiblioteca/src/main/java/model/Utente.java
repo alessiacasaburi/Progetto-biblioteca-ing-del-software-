@@ -113,12 +113,23 @@ public class Utente {
         }
     }
     
-     /**
-     * @brief Rimuove il prestito dalla lista prestiti degli utenti 
-     * @param p l'oggetto della classe prestiti da rimuovere dalla lista.
-     */
-    public void rimuoviPrestito(Prestito p) {
-        prestitiAttivi.remove(p);
+    /**
+     * @brief Conta quanti libri l'utente ha attualmente in presito.
+     * Scorre la lista e conta solo i prestiti attivi(libri ancora non restituiti).
+     * Lancia un'eccezione nel caso in cui un utente abbia già 3 prestiti attivi.
+     * questo metodo viene chiamato solo quando aggiungiamo un prestito.
+     */
+    public void verificaPrestitiAttivi() throws Exception {
+        
+      int contatore = 0;
+        for (Prestito p : prestitiAttivi) {
+            if (p.isPrestitoAttivo()) {
+                contatore++;
+                if (contatore >= 3) {
+                    throw new Exception("L'utente non può richiedere il prestito: limite raggiunto.");
+                }
+            }
+        }
     }
     
     /**

@@ -19,6 +19,7 @@ public class Prestito {
     private Libro libro;
     private LocalDate dataInizio;
     private LocalDate dataScadenza;
+    private LocalDate dataRestituzione;
     private boolean prestitoAttivo;
 
     /**
@@ -46,10 +47,11 @@ public class Prestito {
     }
     
     /**
-     * @brief Imposta il prestito come concluso (libro restituito).
-     */
-    public void setPrestitoConcluso(){
-        this.prestitoAttivo= false;
+    * @brief Imposta il prestito come concluso (libro restituito).
+    */
+    public void setPrestitoConcluso() {
+        this.prestitoAttivo = false;
+        this.dataRestituzione = LocalDate.now(); 
     }
     
     /**
