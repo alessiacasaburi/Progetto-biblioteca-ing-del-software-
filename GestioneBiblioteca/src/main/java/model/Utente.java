@@ -103,6 +103,25 @@ public class Utente {
     }
     
     /**
+     * @brief Aggiunge il prestito alla lista prestiti degli utenti 
+     * @param p l'oggetto della classe prestiti da aggiungere alla lista.
+     *  Controlla che lo stesso prestito non esista già nella lista.
+     */
+    public void aggiungiPrestito(Prestito p) {
+    if(!prestitiAttivi.contains(p)) {
+           prestitiAttivi.add(p);
+        }
+    }
+    
+     /**
+     * @brief Rimuove il prestito dalla lista prestiti degli utenti 
+     * @param p l'oggetto della classe prestiti da rimuovere dalla lista.
+     */
+    public void rimuoviPrestito(Prestito p) {
+        prestitiAttivi.remove(p);
+    }
+    
+    /**
      * @brief Verifica la validità della matricola o dell'email.
      * * Controlla se i formati della matricola e dell'email rispettano i criteri stabiliti.
      * * @return true se i dati sono validi, false altrimenti.
@@ -115,5 +134,15 @@ public class Utente {
            throw new IllegalArgumentException("Email non valida");
         }
        return true;
-    }   
+    }  
+    
+    @Override
+    
+     /**
+     * @brief Stampa utente come stringa
+     * * Da utilizzare per visualizzare la lista utenti.
+     */
+    public String toString() {
+        return cognome + " " + nome + " (" + matricola + ")";
+    }
 }

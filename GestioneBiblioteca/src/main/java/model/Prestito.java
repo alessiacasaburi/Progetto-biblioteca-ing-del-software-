@@ -24,7 +24,7 @@ public class Prestito {
     /**
      * @brief Costruttore della classe Prestito.
      * * Inizializza un nuovo prestito e lo imposta automaticamente come attivo (true).
-     * * @param utente        L'oggetto Utente che richiede il prestito.
+     * @param utente        L'oggetto Utente che richiede il prestito.
      * @param libro         L'oggetto Libro che viene prestato.
      * @param dataInizio    La data in cui ha inizio il prestito.
      * @param dataScadenza  La data entro cui il libro deve essere restituito.
@@ -44,13 +44,12 @@ public class Prestito {
     public boolean isPrestitoAttivo() {
         return prestitoAttivo;
     }
+    
     /**
-     * @brief Modifica lo stato del prestito.
-     * * Utilizzato principalmente per chiudere un prestito (impostandolo a false) al momento della restituzione.
-     * * @param prestitoAttivo true per renderlo attivo, false per indicare che è concluso.
+     * @brief Imposta il prestito come concluso (libro restituito).
      */
-    public void setPrestitoAttivo(boolean prestitoAttivo){
-        this.prestitoAttivo = prestitoAttivo;
+    public void setPrestitoConcluso(){
+        this.prestitoAttivo= false;
     }
     
     /**
@@ -83,5 +82,15 @@ public class Prestito {
      */
     public LocalDate getDataInizio() {
         return dataInizio;
+    }
+    
+   @Override
+   
+    /**
+     * @brief Stampa un prestito come stringa
+     * * Da utilizzare per visualizzare la lista prestiti.
+     */
+    public String toString() {
+        return "Prestito: " + libro.getTitolo() + " a " + utente.getCognome();
     }
 }

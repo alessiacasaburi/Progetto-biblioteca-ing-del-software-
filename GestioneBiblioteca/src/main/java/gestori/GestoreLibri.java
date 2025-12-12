@@ -31,12 +31,23 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
     /**
      * @brief Aggiunge un nuovo libro al catalogo.
      * @param libro L'oggetto Libro da inserire nella lista.
+     * verifica che isbn non sia nullo o vuoto e lancio un eccezione e verifico
+     * che il codice isbn sia univoco confrontandolo nella lista libri
      */
     @Override
-    public void aggiungi(Libro libro) {
-        // TODO: Implementare 
+  public void aggiungi(Libro libro) {
+        if (libro.getIsbn() == null || libro.getIsbn().isEmpty()) {
+            throw new IllegalArgumentException("L'ISBN non può essere vuoto.");
+        }
+        
+        for (Libro l : listaLibri) {
+            if (l.getIsbn().equals(libro.getIsbn())) {
+                throw new IllegalArgumentException("Errore: Esiste già un libro con questo ISBN (" + libro.getIsbn() + ")" + "Titolo" + libro.getTitolo());
+            }
+        }
+        listaLibri.add(libro);
     }
-
+  
     /**
      * @brief Rimuove un libro dal catalogo.
      * @param libro L'oggetto Libro da rimuovere.
@@ -44,8 +55,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
      */
     @Override
     public boolean rimuovi(Libro libro) {
-        // TODO: Implementare 
-        return false;
+        return listaLibri.remove(libro);
     }
 
     /**
@@ -58,13 +68,24 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
     }
 
     /**
-     * @brief Cerca un libro specifico nel catalogo.
-     * @param oggetto Il libro (o l'oggetto con i criteri di ricerca) da trovare.
+     * @brief Cerca un libro specifico nel catalogo confrontando il campo ISBN.
+     * verifica che il libro e codice isbn esistano altrimenti ritornano nul
+     * @param oggetto Il libro che si intende cercare.
      * @return L'oggetto Libro corrispondente se trovato, null altrimenti.
      */
     @Override
     public Libro cerca(Libro oggetto) {
-        // TODO: Implementare 
-        return null;
+        if (oggetto == null || oggetto.getIsbn() == null) {
+            return null;
+        }
+        
+        for (Libro l : listaLibri) {
+            // Confronto SOLO gli ISBN 
+            if (l.getIsbn().equalsIgnoreCase(oggetto.getIsbn())) {
+                return l; 
+            }
+        }
+        return null; 
     }
+
 }
