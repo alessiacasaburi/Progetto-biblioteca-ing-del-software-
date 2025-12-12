@@ -27,7 +27,49 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
     public GestoreLibri() {
         this.listaLibri = FXCollections.observableArrayList();
     }
+    
+    /**
+     * @brief implementazione della ricerca testuale
+     * * @param testo stringa il quale contenuto rappresenta la nostra ricerca
+     * La stringa passata come parametro viene coonfrontata con tutti i titoli autori e isbn dei libri presenti nella biblioteca.
+     * @return Una ObservableList contenente solo i libri che hanno una congruenza con la stringa passata.
+     */
+    public ObservableList<Libro> ricercaTestuale(String testo) {
+        
+        ObservableList<Libro> risultati = FXCollections.observableArrayList();
+       
+        if (testo == null || testo.isEmpty()) {
+            return listaLibri; 
+        }
+        
+        String testoLower = testo.toLowerCase();
 
+        for (Libro l : listaLibri) {
+            boolean trovato = false;
+
+            if (l.getTitolo().toLowerCase().contains(testoLower)) {
+                trovato = true;
+            }
+            
+            else if (l.getIsbn().toLowerCase().contains(testoLower)) {
+                trovato = true;
+            }
+           
+            else {
+                for (String autore : l.getAutori()) {
+                    if (autore.toLowerCase().contains(testoLower)) {
+                        trovato = true;
+                        break; 
+                    }
+                }
+            }
+            if (trovato) {
+                risultati.add(l);
+            }
+        }
+        return risultati;
+    }
+    
     /**
      * @brief Aggiunge un nuovo libro al catalogo.
      * @param libro L'oggetto Libro da inserire nella lista.
