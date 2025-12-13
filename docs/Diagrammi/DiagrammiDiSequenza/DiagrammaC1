@@ -1,0 +1,31 @@
+title C1 – Inserire Libro (Coerente con le Classi)
+    
+    actor Utente
+    participant Schermata as Schermata di Gestione Libri
+    participant GestoreLibri as :GestoreLibri
+    
+    %% Inizio della Linea di Vita per la creazione di Libro
+    
+    Utente->>Schermata: 1. cliccaAggiungiLibro()
+    Utente->>Schermata: 2. inserisciDatiLibro(titolo, autore, anno, ISBN)
+
+    alt Utente clicca "Salva" (Flusso Normale)
+        Utente->>Schermata: 3. cliccaSalva()
+        
+        activate GestoreLibri
+        Schermata->>GestoreLibri: 4. aggiungiLibro(dati)
+        
+        %% Creazione dell'Entità Libro
+        create participant Libro as Libro
+        GestoreLibri->>Libro: 5. create(dati)
+        
+        GestoreLibri-->>Schermata: 6. OK/libro aggiunto
+        deactivate GestoreLibri
+        
+        Schermata-->>Utente: 7. mostraConferma()
+
+    else [Utente clicca "Annulla" (Flusso Alternativo)]
+        Utente->>Schermata: cliccaAnnulla()
+        Schermata-->>Utente: tornaAVisualizzazioneLibri()
+        
+    end
