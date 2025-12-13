@@ -1,5 +1,6 @@
+import Entita.Prestito;
+import Entita.Libro;
 import gestori.*;
-import model.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
