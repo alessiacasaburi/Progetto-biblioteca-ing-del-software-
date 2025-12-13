@@ -10,7 +10,7 @@ package gestori;
  * permettendo l'aggiunta, la rimozione e la ricerca all'interno di una lista osservabile.
  * * @author Alessandro
  */
-import model.*;
+import entita.Libro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,6 +18,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
 
     /** Collezione osservabile che contiene tutti i libri presenti nel sistema. */
     private ObservableList<Libro> listaLibri;
+    private static final String FILE_LIBRI = "archivio_libri.dat";
        
     
     /**
@@ -25,7 +26,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
      * * Inizializza la lista dei libri come una collezione vuota.
      */
     public GestoreLibri() {
-        this.listaLibri = FXCollections.observableArrayList();
+        this.listaLibri = Salvataggio.caricaLista(FILE_LIBRI);
     }
     
     /**
@@ -81,6 +82,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
             }
         }
         listaLibri.add(libro);
+        Salvataggio.salvaLista(listaLibri, FILE_LIBRI);
     }
   
     /**
@@ -90,7 +92,11 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
      */
     @Override
     public boolean rimuovi(Libro libro) {
-        return listaLibri.remove(libro);
+        boolean rimosso = listaLibri.remove(libro);
+        if (rimosso) {
+            Salvataggio.salvaLista(listaLibri, FILE_LIBRI);
+        }
+        return rimosso;
     }
 
     /**

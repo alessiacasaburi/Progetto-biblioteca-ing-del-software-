@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package entita;   
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * @brief Rappresenta un libro nel catalogo della biblioteca.
@@ -12,7 +13,7 @@ import java.util.List;
  * e gestisce anche le disponibilità.
  * * @author Alessandro
  */
-public class Libro {
+public class Libro implements Serializable {
 
     private String titolo;
     private List<String> autori;
@@ -23,7 +24,7 @@ public class Libro {
     /**
      * @brief Costruttore della classe Libro.
      * * Inizializza un nuovooggetto della classe librpo e il numero iniziale di copie.
-     * * @param isbn              Il codice ISBN univoco del libro.
+     *  @param isbn              Il codice ISBN univoco del libro.
      * @param titolo            Il titolo del libro.
      * @param autori            La lista degli autori del libro.
      * @param annoPubblicazione L'anno in cui il libro è stato pubblicato.
@@ -107,16 +108,16 @@ public class Libro {
      * * @return true se ci sono copie disponibili, false altrimenti.
      */
     public boolean isDisponibile() {
-        // TODO: Implementare
-        return false;
+        // Logica: restituisce true solo se il contatore è maggiore di 0
+        return this.copieDisponibili > 0;
     }
-
+    
     /**
      * @brief Aumenta di una unità il numero di copie disponibili.
      * * Da utilizzare quando un libro viene restituito.
      */
     public void incrementaDisponibilita() {
-        // TODO: Implementare 
+        this.copieDisponibili++;
     }
 
     /**
@@ -124,6 +125,16 @@ public class Libro {
      * * Da utilizzare quando viene registrato un nuovo prestito.
      */
     public void decrementaDisponibilita() {
-        // TODO: Implementare 
+        this.copieDisponibili--;
+    }
+
+    @Override
+    /**
+     * @brief Stampa un libro come stringa 
+     ** Da utilizzare per visualizzare la lista libri.
+     * @return il libro come stringa
+     */
+    public String toString() {
+        return titolo + " (" + isbn + ")";
     }
 }

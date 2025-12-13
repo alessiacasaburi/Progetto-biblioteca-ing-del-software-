@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package entita;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * e mantiene la lista dei prestiti attualmente attivi associati all'utente stesso.
  * * @author Alessandro
  */
-public class Utente {
+public class Utente implements Serializable{
 
     
     private String nome;
@@ -154,6 +155,6 @@ public class Utente {
      * * Da utilizzare per visualizzare la lista utenti.
      */
     public String toString() {
-        return cognome + " " + nome + " (" + matricola + ")";
+        return cognome +" "+nome+"("+matricola+")";
     }
 }

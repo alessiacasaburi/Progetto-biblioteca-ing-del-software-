@@ -1,9 +1,11 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package entita;
 
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -13,7 +15,7 @@ import java.time.LocalDate;
  * la variabile prestito attivo evidenzia velocemente i prestiti in ritardo.
  * * @author Alessandro
  */
-public class Prestito {
+public class Prestito implements Serializable{
 
     private Utente utente;
     private Libro libro;

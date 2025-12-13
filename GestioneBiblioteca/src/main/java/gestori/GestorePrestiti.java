@@ -4,7 +4,10 @@
  */
 package gestori;
 
-import model.*;
+
+import entita.Prestito;
+import entita.Libro;
+import entita.Utente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,12 +19,13 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
 
     /** Lista contenente tutti i prestiti gestiti. */
     private ObservableList<Prestito> listaPrestiti;
+    private static final String FILE_PRESTITI = "archivio_prestiti.dat";
 
     /**
      * @brief Costruttore della classe GestorePrestiti.
      */
     public GestorePrestiti() {
-        this.listaPrestiti = FXCollections.observableArrayList();
+         this.listaPrestiti = Salvataggio.caricaLista(FILE_PRESTITI);
     }
     
     /**
@@ -67,6 +71,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
             l.decrementaDisponibilita();
             u.aggiungiPrestito(prestito); 
             listaPrestiti.add(prestito);
+            Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -106,6 +111,10 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
      */
     @Override
     public boolean rimuovi(Prestito prestito) {
-        return listaPrestiti.remove(prestito);
+        boolean rimosso = listaPrestiti.remove(prestito);
+        if (rimosso) {
+            Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
+        }
+        return rimosso;
     }
- }
+}
