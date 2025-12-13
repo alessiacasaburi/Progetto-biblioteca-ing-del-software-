@@ -5,6 +5,7 @@
 package model;   
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * @brief Rappresenta un libro nel catalogo della biblioteca.
@@ -12,7 +13,7 @@ import java.util.List;
  * e gestisce anche le disponibilità.
  * * @author Alessandro
  */
-public class Libro {
+public class Libro implements Serializable {
 
     private String titolo;
     private List<String> autori;
