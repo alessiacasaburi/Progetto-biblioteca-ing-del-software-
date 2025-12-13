@@ -5,9 +5,9 @@
 package gestori;
 
 
-import Entita.Prestito;
-import Entita.Libro;
-import Entita.Utente;
+import entita.Prestito;
+import entita.Libro;
+import entita.Utente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

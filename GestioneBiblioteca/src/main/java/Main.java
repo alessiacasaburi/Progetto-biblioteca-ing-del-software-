@@ -1,5 +1,5 @@
-import Entita.Prestito;
-import Entita.Libro;
+import entita.Prestito;
+import entita.Libro;
 import gestori.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;

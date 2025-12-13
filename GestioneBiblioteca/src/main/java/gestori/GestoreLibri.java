@@ -10,7 +10,7 @@ package gestori;
  * permettendo l'aggiunta, la rimozione e la ricerca all'interno di una lista osservabile.
  * * @author Alessandro
  */
-import Entita.Libro;
+import entita.Libro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
