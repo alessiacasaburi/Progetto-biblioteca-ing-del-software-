@@ -8,7 +8,6 @@ import model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 /**
  * @brief Classe responsabile della gestione dell'anagrafica utenti.
  * * Mantiene la lista di tutti gli utenti registrati alla biblioteca e permette
