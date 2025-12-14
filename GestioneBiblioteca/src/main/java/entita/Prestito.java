@@ -80,6 +80,14 @@ public class Prestito implements Serializable{
         return dataScadenza;
     }
     
+     /**
+     * @brief Restituisce la data di scadenza del prestito.
+     * @return La data entro cui il libro va restituito.
+     */
+    public LocalDate getDataRestituzione() {
+        return dataRestituzione;
+    }
+    
     /**
      * @brief Restituisce la data di inizio del prestito.
      * @return La data in cui il prestito è stato registrato.
