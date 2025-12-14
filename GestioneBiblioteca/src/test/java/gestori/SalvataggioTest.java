@@ -29,8 +29,8 @@ public class SalvataggioTest {
     private static final String FILE_TEST = "test_database.dat";
 
     /**
-     * @brief Pulizia post-test (TearDown).
-     * Questo metodo viene eseguito automaticamente DOPO ogni singolo test.
+     * @brief Pulizia post-test.
+     * Questo metodo viene eseguito automaticamente dopo ogni singolo test.
      * Serve a garantire che il file di prova venga cancellato, lasciando l'ambiente pulito.
      */
     @AfterEach
@@ -49,13 +49,12 @@ public class SalvataggioTest {
     public void testSalvaECarica() {
         System.out.println("Test A: Verifica salvataggio e lettura...");
 
-        // 1. PREPARAZIONE DATI
-        // Usiamo una lista normale (ArrayList) come input, come nel tuo programma reale
+       
         List<ElementoTest> listaOriginale = new ArrayList<>();
         listaOriginale.add(new ElementoTest(1, "Mario Rossi"));
         listaOriginale.add(new ElementoTest(2, "Luigi Bianchi"));
 
-        // 2. AZIONE: Salvataggio
+        // Salvataggio
         Salvataggio.salvaLista(listaOriginale, FILE_TEST);
 
         // Verifica che il file sia stato fisicamente creato
@@ -63,14 +62,14 @@ public class SalvataggioTest {
         assertTrue(f.exists(), "Il file .dat dovrebbe esistere dopo il salvataggio");
         assertTrue(f.length() > 0, "Il file non dovrebbe essere vuoto");
 
-        // 3. AZIONE: Caricamento
+        // Caricamento
         ObservableList<ElementoTest> listaCaricata = Salvataggio.caricaLista(FILE_TEST);
 
-        // 4. VERIFICA DATI
+        //verifica dati
         assertNotNull(listaCaricata, "La lista caricata non deve essere null");
         assertEquals(2, listaCaricata.size(), "Il numero di elementi salvati e caricati deve coincidere");
         
-        // Verifica profonda dei contenuti
+        
         assertEquals(listaOriginale.get(0).getNome(), listaCaricata.get(0).getNome());
         assertEquals(listaOriginale.get(1).getId(), listaCaricata.get(1).getId());
 
@@ -82,11 +81,9 @@ public class SalvataggioTest {
     public void testCaricamentoFileMancante() {
         System.out.println("Test B: Verifica comportamento senza file...");
 
-        // Proviamo a caricare un file che NON esiste (grazie al tearDown siamo sicuri che non c'è)
-        // La tua classe controlla "if (!file.exists())" e restituisce una lista vuota
+        // Proviamo a caricare un file che NON esiste
         ObservableList<String> risultato = Salvataggio.caricaLista("file_inesistente_xyz.dat");
 
-        // Verifiche
         assertNotNull(risultato, "Il metodo non deve restituire null se il file manca");
         assertTrue(risultato.isEmpty(), "Deve restituire una lista vuota, non generare errori");
         
@@ -98,32 +95,28 @@ public class SalvataggioTest {
     public void testSovrascrittura() {
         System.out.println("Test C: Verifica sovrascrittura...");
 
-        // 1. Salviamo una prima lista
+        //salvo una prima lista
         List<String> listaUno = new ArrayList<>();
         listaUno.add("Vecchio Dato");
         Salvataggio.salvaLista(listaUno, FILE_TEST);
 
-        // 2. Salviamo una seconda lista sullo STESSO file
+        // salvo una seconda lista sullo stesso file
         List<String> listaDue = new ArrayList<>();
         listaDue.add("Nuovo Dato");
         Salvataggio.salvaLista(listaDue, FILE_TEST); // Dovrebbe sovrascrivere
 
-        // 3. Carichiamo
+        
         ObservableList<String> caricata = Salvataggio.caricaLista(FILE_TEST);
 
-        // 4. Verifica: deve esserci solo il dato nuovo
+        //verifica che ci sia solo il dato nuovo
         assertEquals(1, caricata.size());
         assertEquals("Nuovo Dato", caricata.get(0));
         
         System.out.println(" - Sovrascrittura: OK");
     }
 
-    // =========================================================
-    // CLASSE FINTA (Mock) PER IL TEST
-    // Serve a testare il salvataggio senza dipendere dalla classe Utente o Libro.
-    // Se un domani rompi la classe Utente, questo test continuerà a funzionare
-    // confermandoti che il problema non è nel Salvataggio.
-    // =========================================================
+    //creo una classe statica che serve per verificare il corretto funzionamento di salvataggio 
+    //a prescindere dalle classi utente e libro
     static class ElementoTest implements Serializable {
         private int id;
         private String nome;

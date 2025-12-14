@@ -53,6 +53,14 @@ public class Libro implements Serializable {
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }
+    
+    /**
+     * @brief Imposta un nuovo anno di pubblicazione per il libro.
+     * @param anno Il nuovo anno da assegnare.
+     */
+    public void setAnnoPubblicazione(int anno) {
+        this.annoPubblicazione = anno;
+    }
 
     /**
      * @brief Restituisce la lista degli autori.
@@ -108,7 +116,7 @@ public class Libro implements Serializable {
      * * @return true se ci sono copie disponibili, false altrimenti.
      */
     public boolean isDisponibile() {
-        // Logica: restituisce true solo se il contatore è maggiore di 0
+        //restituisce true solo se il contatore è maggiore di 0
         return this.copieDisponibili > 0;
     }
     
@@ -127,6 +135,13 @@ public class Libro implements Serializable {
     public void decrementaDisponibilita() {
         this.copieDisponibili--;
     }
+    
+    public boolean verificaisbn() {
+       if(this.isbn== null|| !this.isbn.matches("\\d{13}")){
+           throw new IllegalArgumentException("ISBN non valido");
+        }
+       return true;
+    }  
 
     @Override
     /**

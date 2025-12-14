@@ -4,7 +4,7 @@
  */
 package gestori;
 
-import model.*;
+import entita.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
