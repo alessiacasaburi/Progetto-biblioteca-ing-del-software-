@@ -1,97 +1,142 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entita;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Test Suite per la classe Libro.
- * Copre: Logica di business, Valori limite, Eccezioni e Integrità dati.
+ * @brief Classe di test per la classe Libro.
+ * @author Annamaria
  */
 public class LibroTest {
 
     private Libro libro;
-    private List<String> autoriStd;
+    private List<String> autori;
 
-    // Eseguito PRIMA di ogni test per garantire un ambiente pulito
+    /**
+     * @brief Setup iniziale prima di ogni test.
+     * Crea un oggetto Libro valido per evitare di ripeterlo in ogni metodo.
+     */
     @BeforeEach
     public void setUp() {
-        autoriStd = Arrays.asList("J.K. Rowling");
-        libro = new Libro("9788869183157", "Harry Potter", autoriStd, 1997, 5);
-        System.out.println("\n--- Avvio nuovo test ---");
+        autori = new ArrayList<>(Arrays.asList("J.K. Rowling"));
+        // ISBN di 13 cifre valido per il test
+        libro = new Libro("Harry Potter", autori, 1997, "9788869183157", 10);
     }
 
+    /**
+     * @brief Test del costruttore e dei getter.
+     * Verifica che l'oggetto venga inizializzato con i valori corretti.
+     */
     @Test
-    @DisplayName("Test A: Gestione Disponibilità e Valori Limite (0)")
-    public void testLogicaDisponibilita() {
-        System.out.println("Verifica flusso disponibilità:");
-
-        // 1. Stato iniziale (5 copie)
-        assertTrue(libro.isDisponibile(), "ERR: Con 5 copie deve essere disponibile");
-        System.out.println(" - 5 copie: Disponibile [OK]");
-
-        // 2. Decremento
-        libro.decrementaDisponibilita();
-        assertEquals(4, libro.getCopieDisponibili());
-        System.out.println(" - Decremento: copie scese a 4 [OK]");
-
-        // 3. Valore Limite (Boundary Value Analysis): Esattamente 0 copie
-        libro.setCopieDisponibili(0);
-        assertFalse(libro.isDisponibile(), "ERR: Con 0 copie NON deve essere disponibile");
-        System.out.println(" - 0 copie (Limite): Non disponibile [OK]");
-        
-        // 4. Incremento da 0
-        libro.incrementaDisponibilita(); // Ora 1
-        assertTrue(libro.isDisponibile());
-        System.out.println(" - Incremento: tornato disponibile (1 copia) [OK]");
-    }
-
-    @Test
-    @DisplayName("Test B: Validazione ISBN (Input Space & Exceptions)")
-    public void testValidazioneISBN() {
-        System.out.println("Verifica validazione ISBN:");
-
-        // 1. Caso Positivo (Happy Path)
-        assertDoesNotThrow(() -> libro.verificaisbn());
-        System.out.println(" - ISBN corretto (13 cifre): Accettato [OK]");
-
-        // 2. Caso Input Invalido: Lunghezza errata (Meno di 13)
-        libro = new Libro("123", "Test", autoriStd, 2020, 1);
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> libro.verificaisbn());
-        System.out.println(" - ISBN corto: " + e1.getMessage() + " [OK]");
-
-        // 3. Caso Input Invalido: Caratteri non numerici
-        libro = new Libro("123456789012A", "Test", autoriStd, 2020, 1);
-        assertThrows(IllegalArgumentException.class, () -> libro.verificaisbn());
-        System.out.println(" - ISBN alfanumerico: Rifiutato [OK]");
-
-        // 4. Caso Speciale: Null
-        libro = new Libro(null, "Test", autoriStd, 2020, 1);
-        assertThrows(IllegalArgumentException.class, () -> libro.verificaisbn());
-        System.out.println(" - ISBN Null: Rifiutato [OK]");
-    }
-
-    @Test
-    @DisplayName("Test C: Integrità Dati (Getter/Setter/ToString)")
-    public void testDatiBase() {
-        System.out.println("Verifica consistenza dati:");
-        
-        // Verifica che i dati immessi siano recuperati correttamente
+    public void testCostruttoreEGetter() {
         assertEquals("Harry Potter", libro.getTitolo());
+        assertEquals(autori, libro.getAutori());
         assertEquals(1997, libro.getAnnoPubblicazione());
-        
-        // Modifica e verifica (Setter)
+        assertEquals("9788869183157", libro.getIsbn());
+        assertEquals(10, libro.getCopieDisponibili());
+    }
+
+    /**
+     * @brief Test per ISBN valido.
+     * Verifica che il metodo verificaisbn ritorni true per un codice corretto.
+     */
+    @Test
+    public void testVerificaIsbnValido() {
+        assertTrue(libro.verificaisbn());
+    }
+
+    /**
+     * @brief Test per ISBN non valido (lunghezza errata).
+     * Si aspetta che venga lanciata una IllegalArgumentException.
+     */
+    @Test
+    public void testIsbnLunghezzaErrata() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Libro("Test", autori, 2020, "123", 5);
+        });
+        assertEquals("isbn non valido", exception.getMessage());
+    }
+
+    /**
+     * @brief Test per ISBN non valido (caratteri non numerici).
+     * Si aspetta che venga lanciata una IllegalArgumentException.
+     */
+    @Test
+    public void testIsbnCaratteriNonValidi() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Libro("Test", autori, 2020, "123456789012A", 5);
+        });
+        assertEquals("isbn non valido", exception.getMessage());
+    }
+    
+    /**
+     * @brief Test per ISBN nullo.
+     */
+    @Test
+    public void testIsbnNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Libro("Test", autori, 2020, null, 5);
+        });
+    }
+
+    /**
+     * @brief Test della disponibilità (isDisponibile).
+     */
+    @Test
+    public void testIsDisponibile() {
+        libro.setCopieDisponibili(1);
+        assertTrue(libro.isDisponibile(), "è disponibile con 1 copia");
+
+        libro.setCopieDisponibili(0);
+        assertFalse(libro.isDisponibile(), "non è disponibile con 0 copie");
+    }
+
+    /**
+     * @brief Test decremento disponibilità.
+     */
+    @Test
+    public void testDecrementaDisponibilita() {
+        int copieIniziali = libro.getCopieDisponibili(); 
+        libro.decrementaDisponibilita();
+        assertEquals(copieIniziali - 1, libro.getCopieDisponibili());
+    }
+
+    /**
+     * @brief Test incremento disponibilità.
+     */
+    @Test
+    public void testIncrementaDisponibilita() {
+        int copieIniziali = libro.getCopieDisponibili();
+        libro.incrementaDisponibilita();
+        assertEquals(copieIniziali + 1, libro.getCopieDisponibili());
+    }
+
+    /**
+     * @brief Test dei Setter.
+     */
+    @Test
+    public void testSetters() {
         libro.setTitolo("Nuovo Titolo");
         assertEquals("Nuovo Titolo", libro.getTitolo());
-        System.out.println(" - Getter e Setter: Funzionanti [OK]");
 
-        // ToString check
-        String output = libro.toString();
-        assertTrue(output.contains("Nuovo Titolo") && output.contains("9788869183157"));
-        System.out.println(" - ToString format: " + output + " [OK]");
+        libro.setAnnoPubblicazione(2023);
+        assertEquals(2023, libro.getAnnoPubblicazione());
+    }
+
+    /**
+     * @brief Test del metodo toString.
+     */
+    @Test
+    public void testToString() {
+        String expected = "Harry Potter (9788869183157)";
+        assertEquals(expected, libro.toString());
     }
 }

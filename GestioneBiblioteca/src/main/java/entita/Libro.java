@@ -24,18 +24,19 @@ public class Libro implements Serializable {
     /**
      * @brief Costruttore della classe Libro.
      * * Inizializza un nuovooggetto della classe librpo e il numero iniziale di copie.
-     *  @param isbn              Il codice ISBN univoco del libro.
      * @param titolo            Il titolo del libro.
      * @param autori            La lista degli autori del libro.
      * @param annoPubblicazione L'anno in cui il libro è stato pubblicato.
+     * @param isbn              Il codice ISBN univoco del libro.
      * @param copieDisponibili  Il numero di copie fisiche disponibili per il prestito.
      */
-    public Libro(String isbn, String titolo, List<String> autori, int annoPubblicazione, int copieDisponibili) {
-        this.isbn = isbn;
+    public Libro(String titolo, List<String> autori, int annoPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
         this.autori = autori;
         this.annoPubblicazione = annoPubblicazione;
+        this.isbn = isbn;
         this.copieDisponibili = copieDisponibili;
+        verificaisbn();
     }
 
     /**
@@ -142,9 +143,16 @@ public class Libro implements Serializable {
         this.copieDisponibili--;
     }
     
-    public boolean verificaisbn() {
+    /**
+     * @brief Verifica la validità del codice ISBN del libro.
+     * * Controlla che il campo ISBN non sia nullo e che corrisponda esattamente 
+     * a una sequenza di 13 cifre numeriche.
+     * * @return true se il codice ISBN è valido.
+     * @throws IllegalArgumentException Se l'ISBN è nullo o non rispetta il formato di 13 cifre.
+     */
+     public boolean verificaisbn() {
        if(this.isbn== null|| !this.isbn.matches("\\d{13}")){
-           throw new IllegalArgumentException("ISBN non valido");
+           throw new IllegalArgumentException("isbn non valido");
         }
        return true;
     }  
