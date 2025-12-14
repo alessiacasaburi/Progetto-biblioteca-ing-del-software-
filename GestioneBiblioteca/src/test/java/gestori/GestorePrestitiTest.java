@@ -35,10 +35,10 @@ public class GestorePrestitiTest {
         } catch (Exception e) { fail("Setup fallito su Utente: " + e.getMessage()); }
 
         // Libro con 3 copie disponibile per soddisfare la regola aziendale (copie > 2 per il prestito)
-        libroDisponibile = new Libro("ISBN-A", "Titolo A", Arrays.asList("Autore Uno"), 2020, 3);
+        libroDisponibile = new Libro( "Titolo A", Arrays.asList("Autore Uno"), 2020,"ISBN-A", 3);
         
         // Libro con 0 copie disponibile (per test di fallimento)
-        libroNonDisponibile = new Libro("ISBN-B", "Titolo B", Arrays.asList("Autore Due"), 2020, 0); 
+        libroNonDisponibile = new Libro( "Titolo B", Arrays.asList("Autore Due"), 2020,"ISBN-B", 0); 
     }
 
 
@@ -73,12 +73,12 @@ public class GestorePrestitiTest {
     public void testAggiungiPrestito_UtenteLimiteRaggiunto_Fallimento() {
         // Simula 3 prestiti attivi per l'utente (il limite è 3)
         // Nota: Qui usiamo nuovi libri con 3 copie per garantire che la validazione di Libro non fallisca in questo setup.
-        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro("1", "T1", null, 2020, 3), LocalDate.now().minusDays(3), LocalDate.now().plusDays(3)));
-        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro("2", "T2", null, 2020, 3), LocalDate.now().minusDays(2), LocalDate.now().plusDays(3)));
-        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro("3", "T3", null, 2020, 3), LocalDate.now().minusDays(1), LocalDate.now().plusDays(3)));
+        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro( "T1", null, 2020,"1", 3), LocalDate.now().minusDays(3), LocalDate.now().plusDays(3)));
+        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro( "T2", null, 2020,"2", 3), LocalDate.now().minusDays(2), LocalDate.now().plusDays(3)));
+        utenteValido.aggiungiPrestito(new Prestito(utenteValido, new Libro( "T3", null, 2020,"3", 3), LocalDate.now().minusDays(1), LocalDate.now().plusDays(3)));
         
         // Prestito 4 (fallimento atteso)
-        Libro libroOK = new Libro("ISBN-C", "Titolo C", null, 2020, 3);
+        Libro libroOK = new Libro( "Titolo C", null, 2020,"ISBN-C", 3);
         Prestito prestitoQuarto = new Prestito(utenteValido, libroOK, LocalDate.now(), LocalDate.now().plusDays(30));
 
         // Ci aspettiamo l'eccezione lanciata da Utente
@@ -141,12 +141,12 @@ public class GestorePrestitiTest {
     @Test
     public void testGetPrestitiAttivi() {
         // Prestito 1 (Attivo) - richiede 3 copie iniziali
-        Libro l1 = new Libro("L1", "T1", null, 2020, 3);
+        Libro l1 = new Libro( "T1", null, 2020,"L1", 3);
         Prestito p1 = new Prestito(utenteValido, l1, LocalDate.now(), LocalDate.now().plusDays(30));
         gestore.aggiungi(p1);
         
         // Prestito 2 (Concluso) 
-        Libro l2 = new Libro("L2", "T2", null, 2020, 3);
+        Libro l2 = new Libro( "T2", null, 2020,"L2", 3);
         Prestito p2 = new Prestito(utenteValido, l2, LocalDate.now().minusDays(10), LocalDate.now().plusDays(30));
         p2.setPrestitoConcluso(); 
         l2.incrementaDisponibilita(); // Simula la restituzione

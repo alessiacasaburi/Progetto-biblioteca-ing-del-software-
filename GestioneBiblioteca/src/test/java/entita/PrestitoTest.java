@@ -37,7 +37,7 @@ public class PrestitoTest  {
             
             // Inizializzazione di Libro (classe reale)
             libroTest = new Libro(
-                "978-0000000001", TITOLO_TEST, new ArrayList<>(), 2023, 1
+                TITOLO_TEST, new ArrayList<>(), 2023,"978-0000000001", 1
             );
         
         } catch (Exception e) {
