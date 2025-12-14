@@ -70,21 +70,22 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
      * verifica che isbn non sia nullo o vuoto e lancio un eccezione e verifico
      * che il codice isbn sia univoco confrontandolo nella lista libri
      */
-    @Override
+   @Override
     public void aggiungi(Libro libro) {
-        if (libro.getIsbn() == null || libro.getIsbn().isEmpty()) {
-            throw new IllegalArgumentException("L'ISBN non può essere vuoto.");
+        
+        if (libro == null) {
+            throw new IllegalArgumentException("Impossibile aggiungere un libro nullo.");
         }
         
-        for (Libro l : listaLibri) {
-            if (l.getIsbn().equals(libro.getIsbn())) {
-                throw new IllegalArgumentException("Errore: Esiste già un libro con questo ISBN (" + libro.getIsbn() + ")" + "Titolo" + libro.getTitolo());
-            }
+        Libro libroEsistente = cerca(libro);
+
+        if (libroEsistente != null) {
+            throw new IllegalArgumentException("Errore: Libro già presente (ISBN: " + libroEsistente.getIsbn() + ")" + "Titolo:" + libroEsistente.getTitolo() );
         }
         listaLibri.add(libro);
         Salvataggio.salvaLista(listaLibri, FILE_LIBRI);
     }
-  
+    
     /**
      * @brief Rimuove un libro dal catalogo.
      * @param libro L'oggetto Libro da rimuovere.
@@ -122,7 +123,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
         
         for (Libro l : listaLibri) {
             // Confronto SOLO gli ISBN 
-            if (l.getIsbn().equalsIgnoreCase(oggetto.getIsbn())) {
+            if (l.getIsbn().equals(oggetto.getIsbn())) {
                 return l; 
             }
         }
