@@ -120,14 +120,12 @@ public class Libro implements Serializable {
      * @brief Verifica se ci sono copie disponibili del libro.
     * @throws IllegalArgumentException se il libro non è disponibile (copie <= 0).
     */
-    public boolean isDisponibile() {
+    public void isDisponibile() {
     //  Lancia un errore se necessario.
         if (this.copieDisponibili <= 2) {
         // Lancia l'eccezione che verrà catturata e incapsulata dal GestorePrestiti.
         throw new IllegalArgumentException("Errore: Impossibile prestare. Copie disponibili insufficienti.");
-        
     }
-        return true;
 }
     /**
      * @brief Aumenta di una unità il numero di copie disponibili.

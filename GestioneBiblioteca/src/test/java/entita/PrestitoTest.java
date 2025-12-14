@@ -1,7 +1,8 @@
 package entita;
 
 import java.time.LocalDate;
-import java.util.Arrays; 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Antonietta Franzese
  */
+
 public class PrestitoTest  {
 
     private Utente utenteTest;
@@ -34,9 +36,8 @@ public class PrestitoTest  {
             );
             
             // Inizializzazione di Libro (classe reale)
-            // CORREZIONE: Uso Arrays.asList per passare una lista di stringhe corretta
             libroTest = new Libro(
-              TITOLO_TEST, Arrays.asList("Autore Test"), 2023, "978-0000000001", 1
+                "978-0000000001", TITOLO_TEST, new ArrayList<>(), 2023, 1
             );
         
         } catch (Exception e) {
@@ -50,31 +51,21 @@ public class PrestitoTest  {
 
     @Test
     public void testCostruttore_InizializzazioneCorretta() {
-        // CORREZIONE: Passati solo 4 parametri (senza dataRestituzione che è null all'inizio)
         Prestito prestito = new Prestito(utenteTest, libroTest, dataInizio, dataScadenza);
-        
         assertTrue(prestito.isPrestitoAttivo(), "Il prestito appena creato deve essere attivo.");
-        
-        // CORREZIONE: getDataRestituzione con la D maiuscola
         assertNull(prestito.getDataRestituzione(), "La data di restituzione deve essere NULL prima della conclusione.");
     }
 
     @Test
     public void testSetPrestitoConcluso() {
-        // CORREZIONE: Passati solo 4 parametri
         Prestito prestito = new Prestito(utenteTest, libroTest, dataInizio, dataScadenza);
-        
         prestito.setPrestitoConcluso();
-        
         assertFalse(prestito.isPrestitoAttivo(), "Dopo la conclusione, lo stato deve essere false.");
-        
-        // CORREZIONE: getDataRestituzione con la D maiuscola
         assertEquals(LocalDate.now(), prestito.getDataRestituzione(), "La data di restituzione deve essere impostata a oggi.");
     }
     
     @Test
     public void testToString() {
-        // CORREZIONE: Passati solo 4 parametri
         Prestito prestito = new Prestito(utenteTest, libroTest, dataInizio, dataScadenza);
         
         // La stringa attesa usa i valori costanti
@@ -85,34 +76,33 @@ public class PrestitoTest  {
     
     @Test
     public void testGetterOggettiEDate() {
-        // CORREZIONE: Passati solo 4 parametri
         Prestito prestito = new Prestito(utenteTest, libroTest, dataInizio, dataScadenza);
-        
         assertEquals(utenteTest, prestito.getUtente(), "Getter Utente fallito.");
         assertEquals(libroTest, prestito.getLibro(), "Getter Libro fallito.");
         assertEquals(dataInizio, prestito.getDataInizio(), "Getter DataInizio fallito.");
         assertEquals(dataScadenza, prestito.getDataScadenza(), "Getter DataScadenza fallito.");
     }
 
+
     /**
      * @brief Test per verificare che la data di restituzione non venga sovrascritta.
      */
     @Test
     public void testSetPrestitoConcluso_ChiamataMultipla() throws InterruptedException {
-        // CORREZIONE: Passati solo 4 parametri
         Prestito prestito = new Prestito(utenteTest, libroTest, dataInizio, dataScadenza);
         
         // 1. Prima conclusione
         prestito.setPrestitoConcluso();
-        // CORREZIONE: getDataRestituzione con la D maiuscola
         LocalDate primaDataRestituzione = prestito.getDataRestituzione();
         
-        // Simula un piccolo intervallo di tempo
-        Thread.sleep(1); 
+        // Simula un piccolo intervallo di tempo (sebbene LocalDate.now() sia veloce,
+        // garantisce che la data non venga aggiornata).
+        // Se si usa il mocking di LocalDate.now() (tecnica avanzata), si può testare meglio,
+        // ma per ora verifichiamo che la variabile interna non venga toccata.
+        Thread.sleep(1); // Introduce un ritardo minimo per scopi didattici/robustezza
         
         // 2. Seconda conclusione
         prestito.setPrestitoConcluso(); 
-        // CORREZIONE: getDataRestituzione con la D maiuscola
         LocalDate secondaDataRestituzione = prestito.getDataRestituzione();
 
         // Verifica che lo stato sia sempre concluso
@@ -120,6 +110,6 @@ public class PrestitoTest  {
         
         // Verifica che la data di restituzione non sia cambiata.
         assertEquals(primaDataRestituzione, secondaDataRestituzione, 
-                      "La data di restituzione non deve essere aggiornata nelle chiamate successive.");
+                     "La data di restituzione non deve essere aggiornata nelle chiamate successive.");
     }
 }
