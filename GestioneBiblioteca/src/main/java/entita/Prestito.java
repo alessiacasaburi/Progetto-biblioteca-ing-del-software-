@@ -88,6 +88,9 @@ public class Prestito implements Serializable{
         return dataInizio;
     }
     
+    public LocalDate getDataRestituzione() {
+      return this.dataRestituzione;
+    }
    @Override
    
     /**
