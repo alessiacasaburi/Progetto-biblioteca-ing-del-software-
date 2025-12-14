@@ -1,4 +1,8 @@
 package gestori;
+/**
+ * @brief Classe responsabile dei test della gestione dell'inventario dei libri.
+ * * @author Alessandro
+ */
 
 import entita.Libro;
 import org.junit.jupiter.api.AfterEach;
@@ -7,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
