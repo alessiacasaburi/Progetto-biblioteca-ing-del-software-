@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gestori;
 
 
@@ -22,12 +18,55 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
     private static final String FILE_PRESTITI = "archivio_prestiti.dat";
 
     /**
-     * @brief Costruttore della classe GestorePrestiti.
+     * @brief Costruttore della classe GestorePrestiti. Carica la lista da file.
      */
     public GestorePrestiti() {
-         this.listaPrestiti = Salvataggio.caricaLista(FILE_PRESTITI);
+          this.listaPrestiti = Salvataggio.caricaLista(FILE_PRESTITI);
     }
     
+    /**
+     * @brief Costruttore per i test. Inizializza la lista vuota senza caricare da file.
+     * @param forTest Flag per indicare l'uso in ambiente di test.
+     */
+    public GestorePrestiti(boolean forTest) {
+        if (forTest) {
+            this.listaPrestiti = FXCollections.observableArrayList();
+        } else {
+            this.listaPrestiti = Salvataggio.caricaLista(FILE_PRESTITI);
+        }
+    }
+    
+
+    /**
+     * @brief Registra un nuovo prestito nel sistema.
+     * @param prestito il prestito da registrare nel sistema.
+     * Verifica che l'utente non abbia più di 3 prestiti attivi e che il libro sia disponibile,
+     * successivamente aggiorna la lista dei prestiti generale e la lista dei prestiti dell'utente.
+     */
+    @Override
+    public void aggiungi(Prestito prestito) {
+        try {
+            Utente u = prestito.getUtente();
+            Libro l = prestito.getLibro();
+
+            // 1. Validazione Logica (lancia eccezione se le condizioni non sono soddisfatte)
+            u.verificaPrestitiAttivi(); 
+            l.isDisponibile(); 
+
+            // 2. Aggiornamento stato
+            l.decrementaDisponibilita();
+            u.aggiungiPrestito(prestito); 
+            listaPrestiti.add(prestito);
+            
+            // 3. Salvataggio
+            salvaDati();
+
+        } catch (Exception e) {
+            // Incapsuliamo l'eccezione interna in una RuntimeException per la propagazione
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     /**
      * @brief Gestisce la RESTITUZIONE del libro.
      * @param prestito il prestito da terminare
@@ -36,9 +75,18 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
         if (prestito.isPrestitoAttivo()) {
             prestito.setPrestitoConcluso();
             prestito.getLibro().incrementaDisponibilita();
+            
+            salvaDati();
         }
     }
-  
+    
+
+    /**
+     * @brief Salva lo stato attuale di tutta la lista dei prestiti su file.
+     */
+    public void salvaDati() {
+        Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
+    }
     
     /**
      * @brief Restituisce solo i prestiti attualmente attivi (non restituiti).
@@ -53,30 +101,6 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
         return attivi;
     }
     
-     /**
-     * @brief Registra un nuovo prestito nel sistema.
-     * @param prestito il prestito da registrare nel sistema.
-     * Verifica che l'utente non abbia più di 3 prestiti attivi e che il libro sia disponibile,
-     * successivamente aggiorna la lista dei prestiti generale e la lista dei prestiti dell'utente.
-     */
-    @Override
-    public void aggiungi(Prestito prestito) {
-        try {
-            Utente u = prestito.getUtente();
-            Libro l = prestito.getLibro();
-
-            u.verificaPrestitiAttivi(); 
-            l.isDisponibile(); 
-
-            l.decrementaDisponibilita();
-            u.aggiungiPrestito(prestito); 
-            listaPrestiti.add(prestito);
-            Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
     /**
      * @brief Restituisce la lista dei prestiti.
      */
@@ -85,7 +109,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
         return listaPrestiti;
     }
     
-     /**
+    /**
      * @brief Cerca un prestito nel sistema.
      * @param oggetto il prestito da cercare.
      * Scorre tutta la lista e verifica se esiste un prestito con gli stessi parametri matricola,
@@ -93,7 +117,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
      */
     @Override
     public Prestito cerca(Prestito oggetto) {
-       
+        
         for (Prestito p : listaPrestiti) {
             if (p.getUtente().getMatricola().equals(oggetto.getUtente().getMatricola()) &&
                 p.getLibro().getIsbn().equals(oggetto.getLibro().getIsbn()) &&
@@ -113,7 +137,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
     public boolean rimuovi(Prestito prestito) {
         boolean rimosso = listaPrestiti.remove(prestito);
         if (rimosso) {
-            Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
+            salvaDati(); // Chiamata al metodo che incapsula Salvataggio
         }
         return rimosso;
     }

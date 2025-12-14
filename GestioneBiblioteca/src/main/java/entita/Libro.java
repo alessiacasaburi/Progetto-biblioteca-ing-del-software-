@@ -43,6 +43,10 @@ public class Libro implements Serializable {
      * @return Una stringa contenente il titolo.
      */
     public String getTitolo() {
+        if (this.titolo == null) {
+        return ""; 
+    }
+        
         return titolo;
     }
 
@@ -51,6 +55,7 @@ public class Libro implements Serializable {
      * @param titolo Il nuovo titolo da assegnare.
      */
     public void setTitolo(String titolo) {
+        
         this.titolo = titolo;
     }
     
@@ -111,15 +116,16 @@ public class Libro implements Serializable {
     }
 
     /**
-     * @brief Verifica se il libro è disponibile per il prestito.
-     * * Controlla se il numero di copie disponibili è maggiore di zero.
-     * * @return true se ci sono copie disponibili, false altrimenti.
-     */
-    public boolean isDisponibile() {
-        //restituisce true solo se il contatore è maggiore di 0
-        return this.copieDisponibili > 0;
+     * @brief Verifica se ci sono copie disponibili del libro.
+    * @throws IllegalArgumentException se il libro non è disponibile (copie <= 0).
+    */
+    public void isDisponibile() {
+    //  Lancia un errore se necessario.
+        if (this.copieDisponibili <= 2) {
+        // Lancia l'eccezione che verrà catturata e incapsulata dal GestorePrestiti.
+        throw new IllegalArgumentException("Errore: Impossibile prestare. Copie disponibili insufficienti.");
     }
-    
+}
     /**
      * @brief Aumenta di una unità il numero di copie disponibili.
      * * Da utilizzare quando un libro viene restituito.
