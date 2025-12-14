@@ -7,7 +7,7 @@ import entita.Utente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
+/** 
  * @brief Classe responsabile della gestione delle operazioni di prestito.
  * @author Annamaria
  */
