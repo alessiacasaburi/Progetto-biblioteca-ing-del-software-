@@ -122,7 +122,7 @@ public class Libro implements Serializable {
     */
     public boolean isDisponibile() {
     //  Lancia un errore se necessario.
-        if (this.copieDisponibili <= 2) {
+        if (this.copieDisponibili <1) {
         throw new IllegalArgumentException("Errore: Impossibile prestare. Copie disponibili insufficienti.");
     }
         return true;

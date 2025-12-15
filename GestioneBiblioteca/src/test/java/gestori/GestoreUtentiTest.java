@@ -1,4 +1,4 @@
-package view;
+package gestori;
 
 import entita.Utente;
 import gestori.GestoreUtenti;
@@ -16,7 +16,7 @@ import javafx.geometry.Insets;
 
 import java.util.Optional;
 
-public class UtentiController {
+public class GestoreUtentiTest {
 
     // ===== FXML =====
     @FXML private TextField txtRicerca;

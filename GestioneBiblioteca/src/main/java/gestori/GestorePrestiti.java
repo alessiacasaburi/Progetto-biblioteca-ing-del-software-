@@ -57,7 +57,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
             l.decrementaDisponibilita();
             u.aggiungiPrestito(prestito); 
             listaPrestiti.add(prestito);
-            
+            salvaModifiche();
            
 
         } catch (Exception e) {

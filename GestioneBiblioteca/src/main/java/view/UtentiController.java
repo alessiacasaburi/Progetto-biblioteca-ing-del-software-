@@ -105,10 +105,20 @@ public class UtentiController {
         Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
         conferma.setTitle("Conferma eliminazione");
         conferma.setHeaderText("Stai eliminando l'utente:");
-        conferma.setContentText(u.toString());
+        conferma.setContentText(u.getNome() + " " + u.getCognome() + " (" + u.getMatricola() + ")");
 
         if (conferma.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-            gestore.rimuovi(u);
+            try {
+                // Proviamo a rimuovere (il Gestore salva su file)
+                gestore.rimuovi(u);
+                
+                // Opzionale: se la lista è osservabile la tabella si aggiorna da sola, 
+                // ma un refresh male non fa
+                tabellaUtenti.refresh();
+                
+            } catch (Exception e) {
+                alert("Errore Eliminazione", "Impossibile eliminare l'utente: " + e.getMessage());
+            }
         }
     }
 
@@ -170,10 +180,6 @@ public class UtentiController {
                 "-fx-border-radius: 10;" +
                 "-fx-border-color: #aed6f1;";
 
-        String labelStyle =
-                "-fx-font-weight: bold;" +
-                "-fx-text-fill: #2e86c1;";
-
         TextField nome = new TextField();
         nome.setStyle(fieldStyle);
 
@@ -190,7 +196,7 @@ public class UtentiController {
             nome.setText(u.getNome());
             cognome.setText(u.getCognome());
             matricola.setText(u.getMatricola());
-            matricola.setDisable(true);
+            matricola.setDisable(true); // Matricola non modificabile
             email.setText(u.getEmail());
         }
 
@@ -204,36 +210,52 @@ public class UtentiController {
         dialog.setResultConverter(button -> {
             if (button == salva) {
                 try {
+                    // --- CASO 1: NUOVO UTENTE ---
                     if (u == null) {
-                        return new Utente(
+                        Utente nuovo = new Utente(
                                 matricola.getText(),
                                 nome.getText(),
                                 cognome.getText(),
                                 email.getText()
                         );
-                    } else {
-                        String nuovoNome = nome.getText();
-                        String nuovoCognome = cognome.getText();
-                        String nuovaEmail = email.getText();
+                        // Validazione formale prima di chiudere
+                        nuovo.verificamailmatr(); 
+                        return nuovo;
+                    } 
+                    // --- CASO 2: MODIFICA ESISTENTE ---
+                    else {
+                        // Salviamo i vecchi valori per fare "Rollback" se qualcosa va storto
+                        String oldNome = u.getNome();
+                        String oldCognome = u.getCognome();
+                        String oldEmail = u.getEmail();
 
-                        Utente temp = new Utente(
-                                u.getMatricola(),
-                                nuovoNome,
-                                nuovoCognome,
-                                nuovaEmail
-                        );
-                        temp.verificamailmatr();
+                        try {
+                            // Proviamo ad aggiornare
+                            u.setNome(nome.getText());
+                            u.setCognome(cognome.getText());
+                            u.setEmail(email.getText());
+                            
+                            // Verifica validità dati
+                            u.verificamailmatr();
 
-                        u.setNome(nuovoNome);
-                        u.setCognome(nuovoCognome);
-                        u.setEmail(nuovaEmail);
+                            // Tentativo di salvataggio su file
+                            gestore.salvaModifiche();
+                            
+                            tabellaUtenti.refresh();
+                            return u;
 
-                        gestore.salvaModifiche();
-                        tabellaUtenti.refresh();
-                        return u;
+                        } catch (Exception e) {
+                            // ROLLBACK: Ripristiniamo i vecchi dati se il salvataggio fallisce
+                            u.setNome(oldNome);
+                            u.setCognome(oldCognome);
+                            u.setEmail(oldEmail);
+                            
+                            // Rilanciamo l'errore per mostrarlo nell'alert
+                            throw e;
+                        }
                     }
                 } catch (Exception e) {
-                    alert("Errore", e.getMessage());
+                    alert("Errore Salvataggio", e.getMessage());
                 }
             }
             return null;
@@ -241,12 +263,13 @@ public class UtentiController {
 
         Optional<Utente> result = dialog.showAndWait();
 
+        // Gestione del risultato (Aggiunta nuovo utente)
         result.ifPresent(utente -> {
-            if (u == null) {
+            if (u == null) { // Solo se era un nuovo utente
                 try {
-                    gestore.aggiungi(utente);
+                    gestore.aggiungi(utente); // Aggiunge e salva su file
                 } catch (Exception e) {
-                    alert("Errore", e.getMessage());
+                    alert("Errore Aggiunta", e.getMessage());
                 }
             }
         });

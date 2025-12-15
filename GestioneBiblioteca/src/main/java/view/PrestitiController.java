@@ -1,7 +1,5 @@
 package view;
-/**
- * * @author Annamaria
- */
+
 import entita.Libro;
 import entita.Prestito;
 import entita.Utente;
@@ -20,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,7 +28,7 @@ public class PrestitiController {
     @FXML private TextField txtRicerca;
     @FXML private TableView<Prestito> tabellaPrestiti;
 
-    // --- COLONNE AGGIORNATE IN BASE AL TUO FXML ---
+    // --- COLONNE ---
     @FXML private TableColumn<Prestito, String> colNome;
     @FXML private TableColumn<Prestito, String> colCognome;
     @FXML private TableColumn<Prestito, String> colLibro;
@@ -45,17 +42,13 @@ public class PrestitiController {
 
     @FXML
     public void initialize() {
-        // 1. Configurazione Colonne Complesse (Dati annidati)
-        
-        // Estraiamo il NOME dall'oggetto Utente dentro Prestito
+        // 1. Configurazione Colonne Complesse
         colNome.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getUtente().getNome()));
 
-        // Estraiamo il COGNOME dall'oggetto Utente dentro Prestito
         colCognome.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getUtente().getCognome()));
 
-        // Estraiamo il TITOLO dal Libro
         colLibro.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getLibro().getTitolo()));
 
@@ -63,12 +56,12 @@ public class PrestitiController {
         colDataInizio.setCellValueFactory(new PropertyValueFactory<>("dataInizio"));
         colDataFine.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));
         colRestituito.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(cellData.getValue().getPrestitoAttivo() ? "Sì" : "No"));
+            new SimpleStringProperty(cellData.getValue().getPrestitoAttivo() ? "Sì" : "No"));
 
-        // 4. Listener Ricerca
+        // 4. Listener Ricerca (RIATTIVATO)
         txtRicerca.textProperty().addListener((obs, oldVal, newVal) -> {
             if (gestorePrestiti != null) {
-                //tabellaPrestiti.setItems(gestoreUtenti.ricercaAnagrafica(newVal));
+                tabellaPrestiti.setItems(gestorePrestiti.ricercaTestuale(newVal));
             }
         });
     }
@@ -97,14 +90,11 @@ public class PrestitiController {
         }
     }
 
-    // --- GESTIONE CLICK SUL BOTTONE NUOVO PRESTITO ---
     @FXML
     private void handleNuovo() {
-        // Passiamo 'null' perché è un NUOVO prestito
         apriDialogPrestito(null);
     }
 
-    
     @FXML
     private void handleModifica() {
         Prestito selezionato = tabellaPrestiti.getSelectionModel().getSelectedItem();
@@ -130,10 +120,9 @@ public class PrestitiController {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // --- 1. SETUP DEI CAMPI ---
+        // --- SETUP CAMPI ---
         ComboBox<Utente> cmbUtenti = new ComboBox<>(gestoreUtenti.getLista());
         cmbUtenti.setPromptText("Seleziona Utente...");
-        
         cmbUtenti.setConverter(new javafx.util.StringConverter<Utente>() {
             @Override
             public String toString(Utente u) {
@@ -145,7 +134,6 @@ public class PrestitiController {
 
         ComboBox<Libro> cmbLibri = new ComboBox<>(gestoreLibri.getLista());
         cmbLibri.setPromptText("Seleziona Libro...");
-        
         cmbLibri.setConverter(new javafx.util.StringConverter<Libro>() {
             @Override
             public String toString(Libro l) {
@@ -160,7 +148,7 @@ public class PrestitiController {
 
         dataInizio.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                dataScadenza.setValue(newVal.plusDays(15)); 
+                dataScadenza.setValue(newVal.plusDays(30)); 
             }
         });
 
@@ -188,26 +176,26 @@ public class PrestitiController {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == btnSalvaType) {
                 try {
-                    
+                    // --- NUOVO PRESTITO ---
                     if (prestitoDaModificare == null) { 
-                            return new Prestito(
+                        return new Prestito(
                             cmbUtenti.getValue(), 
                             cmbLibri.getValue(), 
                             dataInizio.getValue(), 
                             dataScadenza.getValue()
                         );
-                    } else {
-                        
+                    } 
+                    // --- MODIFICA PRESTITO ---
+                    else {
                         prestitoDaModificare.setDataInizio(dataInizio.getValue());
                         prestitoDaModificare.setDataScadenza(dataScadenza.getValue());
                         
+                        // Salviamo il prestito aggiornato
                         gestorePrestiti.salvaModifiche();
                         tabellaPrestiti.refresh();
                         return prestitoDaModificare;
                     }
-
                 } catch (Exception ex) {
-                    
                     alert("Errore", ex.getMessage());
                     return null;
                 }
@@ -215,14 +203,16 @@ public class PrestitiController {
             return null;
         });
 
-        
         Optional<Prestito> result = dialog.showAndWait();
 
         result.ifPresent(prestito -> {
-            
-            if (prestitoDaModificare == null) {
+            if (prestitoDaModificare == null) { // Solo se nuovo
                 try {
+                    // 1. Aggiungiamo il prestito (questo salva su file prestiti)
                     gestorePrestiti.aggiungi(prestito);
+                    
+                    // 2. IMPORTANTE: Poiché un prestito decrementa la disponibilità del libro,
+                    // dobbiamo salvare anche lo stato aggiornato dei Libri!
                     gestoreLibri.salvaModifiche();  
 
                 } catch (Exception e) {
@@ -231,6 +221,7 @@ public class PrestitiController {
             }
         });
     }
+
     @FXML
     private void handleRestituzione() {
         Prestito selezionato = tabellaPrestiti.getSelectionModel().getSelectedItem();
@@ -239,9 +230,23 @@ public class PrestitiController {
                 alert("Attenzione", "Questo prestito è già stato chiuso.");
                 return;
             }
-            selezionato.setPrestitoConcluso();
-            gestorePrestiti.salvaModifiche();
-            tabellaPrestiti.refresh(); 
+            try {
+                // 1. Chiude il prestito (aggiorna oggetto Prestito)
+                selezionato.setPrestitoConcluso();
+                
+                // 2. Incrementa disponibilità libro (aggiorna oggetto Libro collegato)
+                selezionato.getLibro().incrementaDisponibilita();
+    
+                // 3. Salva file Prestiti
+                gestorePrestiti.salvaModifiche();
+                
+                // 4. Salva file Libri (la disponibilità è cambiata!)
+                gestoreLibri.salvaModifiche();
+    
+                tabellaPrestiti.refresh();
+            } catch (Exception e) {
+                alert("Errore", "Impossibile completare restituzione: " + e.getMessage());
+            }
         } else {
             alert("Attenzione", "Seleziona un prestito.");
         }
@@ -251,14 +256,29 @@ public class PrestitiController {
     private void handleElimina() {
         Prestito selezionato = tabellaPrestiti.getSelectionModel().getSelectedItem();
         if (selezionato != null) {
-            gestorePrestiti.rimuovi(selezionato);
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            conferma.setTitle("Conferma eliminazione");
+            conferma.setHeaderText("Eliminare definitivamente questo storico?");
+            
+            if (conferma.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+                try {
+                    gestorePrestiti.rimuovi(selezionato);
+                    // Non serve salvare i libri qui perché una rimozione dallo storico 
+                    // di solito non ripristina la disponibilità (dipende dalla logica), 
+                    // ma se il prestito era attivo, bisognerebbe farlo.
+                    // Per sicurezza salviamo tutto:
+                    gestorePrestiti.salvaModifiche();
+                } catch (Exception e) {
+                    alert("Errore", "Impossibile eliminare: " + e.getMessage());
+                }
+            }
         } else {
             alert("Attenzione", "Seleziona una riga da eliminare.");
         }
     }
 
     private void alert(String titolo, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING); // Warning è meglio per errori
         alert.setTitle(titolo);
         alert.setHeaderText(null);
         alert.setContentText(msg);

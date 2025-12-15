@@ -25,8 +25,7 @@ public class GestoreUtenti implements ManagerGenerale<Utente> {
      * * Inizializza la lista degli utenti come una collezione vuota.
      */
     public GestoreUtenti() {
-        this.listaUtenti = FXCollections.observableArrayList();
-    }
+    this.listaUtenti = Salvataggio.caricaLista(FILE_UTENTI);    }
     
     /**
      * @brief Cerca utenti per Cognome, Matricola o Nome.
