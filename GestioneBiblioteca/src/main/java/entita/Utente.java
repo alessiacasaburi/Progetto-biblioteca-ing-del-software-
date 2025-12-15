@@ -142,7 +142,7 @@ public class Utente implements Serializable{
        if(this.matricola== null|| !this.matricola.matches("\\d{10}")){
            throw new IllegalArgumentException("Matricola non valida");
         }
-       if(!this.email.endsWith("@unisa.it")&& this.email.endsWith("@studenti.unisa.it")){
+       if(!this.email.endsWith("@unisa.it")&& !this.email.endsWith("@studenti.unisa.it")){
            throw new IllegalArgumentException("Email non valida");
         }
        return true;
