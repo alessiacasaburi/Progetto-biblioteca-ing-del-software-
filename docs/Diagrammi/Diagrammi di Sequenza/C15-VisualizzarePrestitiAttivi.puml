@@ -1,0 +1,18 @@
+@startuml
+title C15 – Visualizzare Prestiti Attivi
+
+actor Utente
+participant SchermataPrestitiAttivi as "Schermata Prestiti Attivi"
+participant GestorePrestiti as ":GestorePrestiti"
+
+Utente -> "Schermata Prestiti Attivi": 1. apreSchermataPrestitiAttivi()
+ 
+activate GestorePrestiti
+"Schermata Prestiti Attivi" -> ":GestorePrestiti": 2. getPrestitiAttivi()
+ 
+":GestorePrestiti" --> "Schermata Prestiti Attivi": 3. ritorno: List<Prestito> Attivi
+deactivate GestorePrestiti
+ 
+"Schermata Prestiti Attivi" --> Utente: 4. mostraElencoPrestiti(ListaPrestiti)
+
+@enduml
