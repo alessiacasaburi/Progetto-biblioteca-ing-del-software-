@@ -1,0 +1,29 @@
+@startuml
+title C1 – Inserire Libro
+
+actor Utente
+participant "Schermata di Gestione Libri" as SGL
+participant ":GestoreLibri" as GL
+
+Utente -> SGL : cliccaAggiungiLibro()
+Utente -> SGL : inserisciDatiLibro(titolo, autore,\nanno, ISBN)
+
+alt Flusso normale (salvataggio)
+    Utente -> SGL : cliccaSalva()
+    SGL -> GL : aggiungiLibro(dati)
+    activate GL
+
+    create participant Libro as L
+    GL -> L : create(dati)
+
+    GL --> SGL : OK / libro aggiunto
+    deactivate GL
+
+    SGL --> Utente : mostraConferma()
+
+else Flusso alternativo (annulla)
+    Utente -> SGL : cliccaAnnulla()
+    SGL --> Utente : tornaAVisualizzazioneLibri()
+end
+
+@enduml
