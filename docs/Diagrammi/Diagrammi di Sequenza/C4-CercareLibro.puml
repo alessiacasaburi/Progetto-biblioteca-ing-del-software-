@@ -1,23 +1,25 @@
-sequenceDiagram
-    title C4 – Cercare Libro
+@startuml
+title C4 – Cercare Libro
 
-    actor Utente
-    participant SchermataRicercaLibri as Schermata di Ricerca Libri
-    participant GestoreLibri as :GestoreLibri
+actor Utente
+participant "Schermata di Ricerca Libri" as SRL
+participant ":GestoreLibri" as GL
 
-    Utente ->> SchermataRicercaLibri: 1. inserisciCriteriBase(titolo, autore, ISBN)
-    SchermataRicercaLibri ->> GestoreLibri: 2. cercaLibro(criteriBase)
-    
-    alt Flusso Alternativo 1a (Filtri Avanzati: Disponibilita, Anno)
-        Utente ->> SchermataRicercaLibri: 1a. inserisciCriteriAvanzati(disponibilita, anno)
-        activate GestoreLibri
-        SchermataRicercaLibri ->> GestoreLibri: 2a. cercaLibro(criteriAvanzati)
-        GestoreLibri -->> SchermataRicercaLibri: 3. ritorno: listaRisultati(Libro)
-        deactivate GestoreLibri
-    else Flusso Normale (Ricerca Base: Titolo, Autore, ISBN)
-        activate GestoreLibri
-        GestoreLibri -->> SchermataRicercaLibri: 3. ritorno: listaRisultati(Libro)
-        deactivate GestoreLibri
-    end
-    
-    SchermataRicercaLibri -->> Utente: 4. visualizzaRisultati(ListaRisultati)
+Utente -> SRL : inserisciCriteriBase(titolo, autore, ISBN)
+SRL -> GL : cercaLibro(criteriBase)
+activate GL
+
+alt Flusso alternativo (criteri avanzati)
+    Utente -> SRL : inserisciCriteriAvanzati(disponibilita, anno)
+    SRL -> GL : cercaLibro(criteriAvanzati)
+    GL --> SRL : listaRisultati : List<Libro>
+
+else Flusso normale (ricerca base)
+    GL --> SRL : listaRisultati : List<Libro>
+end
+
+deactivate GL
+
+SRL --> Utente : visualizzaRisultati(listaRisultati)
+
+@enduml
