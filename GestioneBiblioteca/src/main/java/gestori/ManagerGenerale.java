@@ -39,4 +39,11 @@ public interface ManagerGenerale<T> {
      * @return L'oggetto trovato di tipo T, oppure null se non presente.
      */
     T cerca(T oggetto); 
+   
+    
+    /**
+     * Salva lo stato corrente della lista sul file.
+     * Da utilizzare dopo modifiche agli oggetti (set) che non alterano la dimensione della lista.
+     */
+    void salvaModifiche();
 }

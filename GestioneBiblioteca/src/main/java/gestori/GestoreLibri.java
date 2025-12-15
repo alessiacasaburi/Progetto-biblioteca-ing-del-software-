@@ -80,7 +80,7 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
         Libro libroEsistente = cerca(libro);
 
         if (libroEsistente != null) {
-            throw new IllegalArgumentException("Errore: Libro già presente (ISBN: " + libroEsistente.getIsbn() + ")" + "Titolo:" + libroEsistente.getTitolo() );
+            throw new IllegalArgumentException("Libro già presente (ISBN: " + libroEsistente.getIsbn() + ")" + "    Titolo:" + libroEsistente.getTitolo() );
         }
         listaLibri.add(libro);
         Salvataggio.salvaLista(listaLibri, FILE_LIBRI);
@@ -128,6 +128,17 @@ public class GestoreLibri implements ManagerGenerale<Libro> {
             }
         }
         return null; 
+    }
+    
+    /**
+     * Salva lo stato corrente della lista sul file.
+     * Da utilizzare dopo modifiche agli oggetti (set) che non alterano la dimensione della lista.
+     */
+    
+    @Override
+    public void salvaModifiche() {
+    
+    Salvataggio.salvaLista(listaLibri, FILE_LIBRI);
     }
 
 }
