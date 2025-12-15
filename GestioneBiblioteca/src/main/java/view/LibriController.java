@@ -1,3 +1,6 @@
+/**
+ * * @author Alessandro
+ */
 package view;
 
 import entita.Libro;
@@ -27,7 +30,7 @@ public class LibriController {
 
     private GestoreLibri gestore;
 
-    // Questo metodo viene chiamato automaticamente quando carichi l'FXML
+    
     @FXML
     public void initialize() {
         // Configura le colonne
@@ -43,13 +46,12 @@ public class LibriController {
         });
     }
 
-    // Metodo per passare il gestore dal Main
     public void setGestore(GestoreLibri gestore) {
         this.gestore = gestore;
         tabellaLibri.setItems(gestore.getLista());
     }
 
-    // --- GESTIONE BOTTONI (CLICK) ---
+    // --- GESTIONE BOTTONI  ---
 
     @FXML
     private void handleModifica() {
@@ -195,8 +197,30 @@ public class LibriController {
             }
         });
     }
+    
+    @FXML
+    private void handleIndietro(javafx.event.ActionEvent event) {
+        try {
+            
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuPrincipale.fxml"));
+            javafx.scene.Parent root = loader.load();
 
-    // Piccolo metodo comodo per gli errori
+            
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            
+            // Crea la nuova scena e impostala
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Biblioteca Manager - Home");
+            stage.show();
+            
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            alert("Errore", "Impossibile tornare al menu principale.");
+        }
+    }
+
+    
     private void alert(String titolo, String messaggio) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titolo);

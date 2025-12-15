@@ -19,12 +19,16 @@
    <children>
       <HBox alignment="CENTER_LEFT" spacing="15.0">
          <children>
+            <Button fx:id="btnIndietro" mnemonicParsing="false" onAction="#handleIndietro" text="← Indietro" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-cursor: hand;"/>
+            
             <Label text="Catalogo Libri">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            
             <Region HBox.hgrow="ALWAYS" />
+            
             <Label text="Cerca:" />
             <TextField fx:id="txtRicerca" promptText="Titolo, Autore o ISBN..." />
          </children>
