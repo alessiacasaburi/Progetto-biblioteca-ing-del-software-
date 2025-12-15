@@ -6,6 +6,7 @@ package view;
 import entita.Libro;
 import gestori.GestoreLibri;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -17,7 +18,6 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class LibriController {
 
-    // Collegamenti col file FXML
     @FXML private TextField txtRicerca;
     @FXML private TableView<Libro> tabellaLibri;
     @FXML private TableColumn<Libro, String> colIsbn;
@@ -26,19 +26,24 @@ public class LibriController {
     @FXML private TableColumn<Libro, Integer> colAnno;
     @FXML private TableColumn<Libro, Integer> colCopie;
 
+    @FXML private Button btnModifica; 
+
     private GestoreLibri gestore;
 
-    
     @FXML
     public void initialize() {
-        // Configura le colonne
+        if (btnModifica != null) {
+            btnModifica.setCursor(Cursor.HAND);
+        }
+
         colIsbn.setCellValueFactory(new PropertyValueFactory<>("Isbn"));
         colTitolo.setCellValueFactory(new PropertyValueFactory<>("Titolo"));
         colAutori.setCellValueFactory(cellData -> new SimpleStringProperty(String.join(", ", cellData.getValue().getAutori())));
         colAnno.setCellValueFactory(new PropertyValueFactory<>("annoPubblicazione"));
         colCopie.setCellValueFactory(new PropertyValueFactory<>("copieDisponibili"));
         
-        // Listener ricerca
+        tabellaLibri.setStyle("-fx-cursor: default;");
+        
         txtRicerca.textProperty().addListener((obs, oldVal, newVal) -> {
             tabellaLibri.setItems(gestore.ricercaTestuale(newVal));
         });
@@ -48,8 +53,6 @@ public class LibriController {
         this.gestore = gestore;
         tabellaLibri.setItems(gestore.getLista());
     }
-
-    // --- GESTIONE BOTTONI  ---
 
     @FXML
     private void handleModifica() {
@@ -61,19 +64,16 @@ public class LibriController {
         }
     }
 
-    // --- GESTIONE CLICK SUL BOTTONE NUOVO ---
     @FXML
     private void handleNuovo(){
-        // Passiamo 'null' perché è un NUOVO libro, non uno esistente
         apriDialogLibro(null);
     }
-// --- GESTIONE CLICK SUL BOTTONE ELIMINA ---
+
     @FXML
     private void handleElimina() {
         
         Libro selezionato = tabellaLibri.getSelectionModel().getSelectedItem();
 
-        
         if (selezionato != null) {
             
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -83,54 +83,65 @@ public class LibriController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-               
+                
                 gestore.rimuovi(selezionato); 
-               
+                
             }
         } else {
             
             alert("Nessun libro selezionato", "Seleziona un libro da eliminare.");
         }
     }
-    // --- LOGICA DELLA FINESTRA DI REGISTRAZIONE ---
+
     private void apriDialogLibro(Libro libroDaModificare) {
         
         Dialog<Libro> dialog = new Dialog<>();
         dialog.setTitle(libroDaModificare == null ? "Nuovo Libro" : "Modifica Libro");
         dialog.setHeaderText(libroDaModificare == null ? "Inserisci i dati del nuovo libro" : "Modifica i dati esistenti");
 
+        dialog.getDialogPane().setStyle("-fx-cursor: default;");
         
         ButtonType btnSalvaType = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(btnSalvaType, ButtonType.CANCEL);
 
-        
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(btnSalvaType);
+        btnSalva.setStyle("-fx-cursor: hand;");
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
+        String fieldStyle = "-fx-cursor: text;";
+
         TextField txtIsbn = new TextField();
+        txtIsbn.setStyle(fieldStyle);
+
         TextField txtTitolo = new TextField();
+        txtTitolo.setStyle(fieldStyle);
+
         TextField txtAutori = new TextField();
+        txtAutori.setStyle(fieldStyle);
+
         TextField txtAnno = new TextField();
+        txtAnno.setStyle(fieldStyle);
+
         TextField txtCopie = new TextField();
-        
+        txtCopie.setStyle(fieldStyle);
         
         txtIsbn.setPromptText("digitare solo le cifre");
         txtTitolo.setPromptText("Titolo del libro");
         txtAutori.setPromptText("Autore 1, Autore 2...");
 
-        // Se stiamo modificando, riempiamo i campi con i dati vecchi
         if (libroDaModificare != null) {
             txtIsbn.setText(libroDaModificare.getIsbn());
-            txtIsbn.setDisable(true); // L'ISBN non si cambia mai!
+            txtIsbn.setDisable(true); 
             txtTitolo.setText(libroDaModificare.getTitolo());
             txtAutori.setText(String.join(", ", libroDaModificare.getAutori()));
             txtAnno.setText(String.valueOf(libroDaModificare.getAnnoPubblicazione()));
             txtCopie.setText(String.valueOf(libroDaModificare.getCopieDisponibili()));
         }
 
-        // Aggiungiamo i campi alla griglia (Colonna, Riga)
         grid.add(new Label("ISBN:"), 0, 0);
         grid.add(txtIsbn, 1, 0);
         grid.add(new Label("Titolo:"), 0, 1);
@@ -144,11 +155,10 @@ public class LibriController {
 
         dialog.getDialogPane().setContent(grid);
 
-       
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == btnSalvaType) {
                 try {
-                   
+                    
                     String titolo = txtTitolo.getText();
                     String isbn = txtIsbn.getText();
                     
@@ -177,10 +187,8 @@ public class LibriController {
             return null;
         });
 
-        
         Optional<Libro> result = dialog.showAndWait();
 
-        // 6. Se l'utente ha salvato correttamente
         result.ifPresent(libro -> {
             if (libroDaModificare == null) {
                 
@@ -203,10 +211,8 @@ public class LibriController {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuPrincipale.fxml"));
             javafx.scene.Parent root = loader.load();
 
-            
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             
-            // Crea la nuova scena e impostala
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             stage.setScene(scene);
             stage.setTitle("Biblioteca Manager - Home");
@@ -218,7 +224,6 @@ public class LibriController {
         }
     }
 
-    
     private void alert(String titolo, String messaggio) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titolo);
@@ -226,5 +231,4 @@ public class LibriController {
         alert.setContentText(messaggio);
         alert.showAndWait();
     }
-
 }

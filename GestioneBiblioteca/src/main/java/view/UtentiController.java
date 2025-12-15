@@ -7,6 +7,7 @@ import gestori.GestoreUtenti;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor; 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
@@ -29,17 +30,22 @@ public class UtentiController {
     @FXML private TableColumn<Utente, String> colEmail;
     @FXML private TableColumn<Utente, Integer> colPrestiti;
 
+    @FXML private Button btnModifica;
+
     private GestoreUtenti gestore;
 
     @FXML
     public void initialize() {
+        
+        if (btnModifica != null) {
+            btnModifica.setCursor(Cursor.HAND);
+        }
 
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colMatricola.setCellValueFactory(new PropertyValueFactory<>("matricola"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        // Prestiti attivi
         colPrestiti.setCellValueFactory(cell ->
                 new SimpleIntegerProperty(
                         (int) cell.getValue()
@@ -54,7 +60,8 @@ public class UtentiController {
                 "-fx-background-color: white;" +
                 "-fx-border-color: #aed6f1;" +
                 "-fx-border-radius: 12;" +
-                "-fx-background-radius: 12;"
+                "-fx-background-radius: 12;" +
+                "-fx-cursor: default;" // <--- 4. Fix cursore sulla tabella
         );
 
         tabellaUtenti.skinProperty().addListener((obs, o, n) -> {
@@ -148,7 +155,8 @@ public class UtentiController {
                 "-fx-background-color: linear-gradient(to bottom, #ffffff, #ebf5fb);" +
                 "-fx-border-color: #85c1e9;" +
                 "-fx-border-radius: 16;" +
-                "-fx-background-radius: 16;"
+                "-fx-background-radius: 16;" +
+                "-fx-cursor: default;" 
         );
 
         ButtonType salva = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
@@ -159,7 +167,8 @@ public class UtentiController {
                 "-fx-background-color: #5dade2;" +
                 "-fx-text-fill: white;" +
                 "-fx-font-weight: bold;" +
-                "-fx-background-radius: 10;"
+                "-fx-background-radius: 10;" +
+                "-fx-cursor: hand;" 
         );
 
         GridPane grid = new GridPane();
@@ -170,7 +179,8 @@ public class UtentiController {
         String fieldStyle =
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;" +
-                "-fx-border-color: #aed6f1;";
+                "-fx-border-color: #aed6f1;" +
+                "-fx-cursor: text;"; 
 
         TextField nome = new TextField();
         nome.setStyle(fieldStyle);
