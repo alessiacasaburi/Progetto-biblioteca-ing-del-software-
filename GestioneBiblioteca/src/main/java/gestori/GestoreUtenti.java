@@ -18,6 +18,7 @@ public class GestoreUtenti implements ManagerGenerale<Utente> {
 
     /** Lista contenente tutti gli utenti registrati. */
     private ObservableList<Utente> listaUtenti;
+    private static final String FILE_UTENTI = "archivio_utenti.dat";
 
     /**
      * @brief Costruttore della classe GestoreUtenti.
@@ -120,4 +121,15 @@ public class GestoreUtenti implements ManagerGenerale<Utente> {
         }
         return null;
     }
+    /**
+     * Salva lo stato corrente della lista sul file.
+     * Da utilizzare dopo modifiche agli oggetti (set) che non alterano la dimensione della lista.
+     */
+    
+    @Override
+    public void salvaModifiche() {
+    
+    Salvataggio.salvaLista(listaUtenti, FILE_UTENTI);
+    }
+
 }
