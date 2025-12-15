@@ -1,5 +1,7 @@
 package view;
-
+/**
+ * * @author Annamaria
+ */
 import entita.Libro;
 import entita.Prestito;
 import entita.Utente;
@@ -28,7 +30,6 @@ public class PrestitiController {
     @FXML private TextField txtRicerca;
     @FXML private TableView<Prestito> tabellaPrestiti;
 
-    // --- COLONNE ---
     @FXML private TableColumn<Prestito, String> colNome;
     @FXML private TableColumn<Prestito, String> colCognome;
     @FXML private TableColumn<Prestito, String> colLibro;
@@ -42,7 +43,6 @@ public class PrestitiController {
 
     @FXML
     public void initialize() {
-        // 1. Configurazione Colonne Complesse
         colNome.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getUtente().getNome()));
 
@@ -52,13 +52,11 @@ public class PrestitiController {
         colLibro.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getLibro().getTitolo()));
 
-        // 2. Configurazione Date
         colDataInizio.setCellValueFactory(new PropertyValueFactory<>("dataInizio"));
         colDataFine.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));
         colRestituito.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getPrestitoAttivo() ? "Sì" : "No"));
 
-        // 4. Listener Ricerca (RIATTIVATO)
         txtRicerca.textProperty().addListener((obs, oldVal, newVal) -> {
             if (gestorePrestiti != null) {
                 tabellaPrestiti.setItems(gestorePrestiti.ricercaTestuale(newVal));
@@ -66,7 +64,6 @@ public class PrestitiController {
         });
     }
 
-    // Riceve i gestori dal MenuPrincipale
     public void setGestori(GestorePrestiti gp, GestoreLibri gl, GestoreUtenti gu) {
         this.gestorePrestiti = gp;
         this.gestoreLibri = gl;
@@ -74,7 +71,6 @@ public class PrestitiController {
         tabellaPrestiti.setItems(gp.getLista());
     }
 
-    // --- AZIONI ---
 
     @FXML
     private void handleIndietro(ActionEvent event) {
@@ -105,7 +101,6 @@ public class PrestitiController {
         }
     }
 
-    // --- LOGICA DELLA FINESTRA DI REGISTRAZIONE (PRESTITO) ---
     private void apriDialogPrestito(Prestito prestitoDaModificare) {
 
         Dialog<Prestito> dialog = new Dialog<>();
@@ -120,7 +115,6 @@ public class PrestitiController {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // --- SETUP CAMPI ---
         ComboBox<Utente> cmbUtenti = new ComboBox<>(gestoreUtenti.getLista());
         cmbUtenti.setPromptText("Seleziona Utente...");
         cmbUtenti.setConverter(new javafx.util.StringConverter<Utente>() {
@@ -176,7 +170,6 @@ public class PrestitiController {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == btnSalvaType) {
                 try {
-                    // --- NUOVO PRESTITO ---
                     if (prestitoDaModificare == null) { 
                         return new Prestito(
                             cmbUtenti.getValue(), 
@@ -185,12 +178,10 @@ public class PrestitiController {
                             dataScadenza.getValue()
                         );
                     } 
-                    // --- MODIFICA PRESTITO ---
                     else {
                         prestitoDaModificare.setDataInizio(dataInizio.getValue());
                         prestitoDaModificare.setDataScadenza(dataScadenza.getValue());
                         
-                        // Salviamo il prestito aggiornato
                         gestorePrestiti.salvaModifiche();
                         tabellaPrestiti.refresh();
                         return prestitoDaModificare;
@@ -206,15 +197,10 @@ public class PrestitiController {
         Optional<Prestito> result = dialog.showAndWait();
 
         result.ifPresent(prestito -> {
-            if (prestitoDaModificare == null) { // Solo se nuovo
+            if (prestitoDaModificare == null) { 
                 try {
-                    // 1. Aggiungiamo il prestito (questo salva su file prestiti)
                     gestorePrestiti.aggiungi(prestito);
-                    
-                    // 2. IMPORTANTE: Poiché un prestito decrementa la disponibilità del libro,
-                    // dobbiamo salvare anche lo stato aggiornato dei Libri!
                     gestoreLibri.salvaModifiche();  
-
                 } catch (Exception e) {
                     alert("Errore", e.getMessage()); 
                 }
@@ -231,16 +217,11 @@ public class PrestitiController {
                 return;
             }
             try {
-                // 1. Chiude il prestito (aggiorna oggetto Prestito)
-                selezionato.setPrestitoConcluso();
-                
-                // 2. Incrementa disponibilità libro (aggiorna oggetto Libro collegato)
+                selezionato.setPrestitoConcluso();              
                 selezionato.getLibro().incrementaDisponibilita();
     
-                // 3. Salva file Prestiti
                 gestorePrestiti.salvaModifiche();
                 
-                // 4. Salva file Libri (la disponibilità è cambiata!)
                 gestoreLibri.salvaModifiche();
     
                 tabellaPrestiti.refresh();
@@ -263,10 +244,7 @@ public class PrestitiController {
             if (conferma.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
                 try {
                     gestorePrestiti.rimuovi(selezionato);
-                    // Non serve salvare i libri qui perché una rimozione dallo storico 
-                    // di solito non ripristina la disponibilità (dipende dalla logica), 
-                    // ma se il prestito era attivo, bisognerebbe farlo.
-                    // Per sicurezza salviamo tutto:
+                   
                     gestorePrestiti.salvaModifiche();
                 } catch (Exception e) {
                     alert("Errore", "Impossibile eliminare: " + e.getMessage());
@@ -278,7 +256,7 @@ public class PrestitiController {
     }
 
     private void alert(String titolo, String msg) {
-        Alert alert = new Alert(Alert.AlertType.WARNING); // Warning è meglio per errori
+        Alert alert = new Alert(Alert.AlertType.WARNING); 
         alert.setTitle(titolo);
         alert.setHeaderText(null);
         alert.setContentText(msg);

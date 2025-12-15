@@ -1,5 +1,7 @@
 package view;
-
+/**
+ * * @author Alessia
+ */
 import entita.Utente;
 import gestori.GestoreUtenti;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,7 +20,6 @@ import java.util.Optional;
 
 public class UtentiController {
 
-    // ===== FXML =====
     @FXML private TextField txtRicerca;
 
     @FXML private TableView<Utente> tabellaUtenti;
@@ -30,7 +31,6 @@ public class UtentiController {
 
     private GestoreUtenti gestore;
 
-    // ===== INIT =====
     @FXML
     public void initialize() {
 
@@ -50,7 +50,6 @@ public class UtentiController {
                 ).asObject()
         );
 
-        // 🎨 stile tabella
         tabellaUtenti.setStyle(
                 "-fx-background-color: white;" +
                 "-fx-border-color: #aed6f1;" +
@@ -67,7 +66,6 @@ public class UtentiController {
         });
     }
 
-    // ===== INIEZIONE GESTORE =====
     public void setGestore(GestoreUtenti gestore) {
         this.gestore = gestore;
         tabellaUtenti.setItems(gestore.getLista());
@@ -77,7 +75,6 @@ public class UtentiController {
         );
     }
 
-    // ===== BOTTONI =====
 
     @FXML
     private void handleNuovo() {
@@ -109,11 +106,8 @@ public class UtentiController {
 
         if (conferma.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {
-                // Proviamo a rimuovere (il Gestore salva su file)
                 gestore.rimuovi(u);
                 
-                // Opzionale: se la lista è osservabile la tabella si aggiorna da sola, 
-                // ma un refresh male non fa
                 tabellaUtenti.refresh();
                 
             } catch (Exception e) {
@@ -122,7 +116,6 @@ public class UtentiController {
         }
     }
 
-    // 🔥 ORA TORNA DAVVERO ALLA HOME
     @FXML
     private void handleIndietro(javafx.event.ActionEvent event) {
         try {
@@ -145,7 +138,6 @@ public class UtentiController {
         }
     }
 
-    // ===== DIALOG UTENTE =====
     private void apriDialog(Utente u) {
 
         Dialog<Utente> dialog = new Dialog<>();
@@ -196,7 +188,7 @@ public class UtentiController {
             nome.setText(u.getNome());
             cognome.setText(u.getCognome());
             matricola.setText(u.getMatricola());
-            matricola.setDisable(true); // Matricola non modificabile
+            matricola.setDisable(true); 
             email.setText(u.getEmail());
         }
 
@@ -210,7 +202,6 @@ public class UtentiController {
         dialog.setResultConverter(button -> {
             if (button == salva) {
                 try {
-                    // --- CASO 1: NUOVO UTENTE ---
                     if (u == null) {
                         Utente nuovo = new Utente(
                                 matricola.getText(),
@@ -218,39 +209,31 @@ public class UtentiController {
                                 cognome.getText(),
                                 email.getText()
                         );
-                        // Validazione formale prima di chiudere
                         nuovo.verificamailmatr(); 
                         return nuovo;
                     } 
-                    // --- CASO 2: MODIFICA ESISTENTE ---
                     else {
-                        // Salviamo i vecchi valori per fare "Rollback" se qualcosa va storto
                         String oldNome = u.getNome();
                         String oldCognome = u.getCognome();
                         String oldEmail = u.getEmail();
 
                         try {
-                            // Proviamo ad aggiornare
                             u.setNome(nome.getText());
                             u.setCognome(cognome.getText());
                             u.setEmail(email.getText());
                             
-                            // Verifica validità dati
                             u.verificamailmatr();
 
-                            // Tentativo di salvataggio su file
                             gestore.salvaModifiche();
                             
                             tabellaUtenti.refresh();
                             return u;
 
                         } catch (Exception e) {
-                            // ROLLBACK: Ripristiniamo i vecchi dati se il salvataggio fallisce
                             u.setNome(oldNome);
                             u.setCognome(oldCognome);
                             u.setEmail(oldEmail);
                             
-                            // Rilanciamo l'errore per mostrarlo nell'alert
                             throw e;
                         }
                     }
@@ -263,11 +246,10 @@ public class UtentiController {
 
         Optional<Utente> result = dialog.showAndWait();
 
-        // Gestione del risultato (Aggiunta nuovo utente)
         result.ifPresent(utente -> {
-            if (u == null) { // Solo se era un nuovo utente
+            if (u == null) { 
                 try {
-                    gestore.aggiungi(utente); // Aggiunge e salva su file
+                    gestore.aggiungi(utente);
                 } catch (Exception e) {
                     alert("Errore Aggiunta", e.getMessage());
                 }
@@ -275,7 +257,6 @@ public class UtentiController {
         });
     }
 
-    // ===== ALERT =====
     private void alert(String titolo, String messaggio) {
         Alert a = new Alert(Alert.AlertType.WARNING);
         a.setTitle(titolo);
