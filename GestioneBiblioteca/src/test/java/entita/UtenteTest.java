@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entita;
-
-/**
- *
- * @author Alessia
- */
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,13 +24,10 @@ public class UtenteTest {
         
         // Inizializza gli oggetti dipendenti con i tuoi costruttori reali
         List<String> autori = Arrays.asList("Autore A");
-        libroTest = new Libro("Test Book", autori, 2020,"978-1234567890", 5);
+        libroTest = new Libro( "Test Book", autori, 2020,"978-1234567890", 5);
     }
 
-    // =================================================================
-    // TEST 1: COSTRUTTORE E GETTER/SETTER
-    // =================================================================
-    
+
     @Test
     void testCostruttoreEGetters() {
         assertEquals("Mario", utente.getNome());
@@ -66,7 +54,11 @@ public class UtenteTest {
         assertEquals(expected, utente.toString());
     }
 
-
+    // =================================================================
+    // TEST 2: VALIDAZIONE DATI (verificamailmatr)
+    // Usiamo assertThrows (sintassi JUnit 5)
+    // =================================================================
+    
     @Test
     void testVerificaMailMatr_MatricolaValida() {
         // Non deve lanciare eccezioni
@@ -100,6 +92,7 @@ public class UtenteTest {
     }
 
     
+
     @Test
     void testAggiungiPrestitoESoloOggettiUnici() {
         Prestito p1 = new Prestito(utente, libroTest, LocalDate.now(), LocalDate.now().plusWeeks(2));
