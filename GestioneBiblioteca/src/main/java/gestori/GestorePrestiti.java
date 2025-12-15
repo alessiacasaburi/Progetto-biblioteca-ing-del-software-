@@ -141,4 +141,14 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
         }
         return rimosso;
     }
+    /**
+     * Salva lo stato corrente della lista sul file.
+     * Da utilizzare dopo modifiche agli oggetti (set) che non alterano la dimensione della lista.
+     */
+    
+    @Override
+    public void salvaModifiche() {
+    
+    Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
+    }
 }
