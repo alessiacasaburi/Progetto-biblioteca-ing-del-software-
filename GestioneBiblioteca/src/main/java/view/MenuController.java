@@ -21,7 +21,7 @@ public class MenuController {
     
     private GestoreLibri gestoreLibri = new GestoreLibri();
     private GestoreUtenti gestoreUtenti = new GestoreUtenti();
-    // private GestorePrestiti gestorePrestiti = new GestorePrestiti();
+    private GestorePrestiti gestorePrestiti = new GestorePrestiti();
 
     @FXML
     private void vaiALibri(ActionEvent event) {
@@ -70,7 +70,21 @@ public class MenuController {
 
     @FXML
     private void vaiAPrestiti(ActionEvent event) {
-        System.out.println("Schermata prestiti non ancora implementata!");
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PrestitiView.fxml"));
+            Parent root = loader.load();
+
+            PrestitiController controller = loader.getController();
+
+            controller.setGestori(this.gestorePrestiti, this.gestoreLibri, this.gestoreUtenti);
+
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestione Prestiti");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

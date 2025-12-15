@@ -49,20 +49,19 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
             Utente u = prestito.getUtente();
             Libro l = prestito.getLibro();
 
-            // 1. Validazione Logica (lancia eccezione se le condizioni non sono soddisfatte)
+            
             u.verificaPrestitiAttivi(); 
             l.isDisponibile(); 
 
-            // 2. Aggiornamento stato
+           
             l.decrementaDisponibilita();
             u.aggiungiPrestito(prestito); 
             listaPrestiti.add(prestito);
             
-            // 3. Salvataggio
-            salvaDati();
+           
 
         } catch (Exception e) {
-            // Incapsuliamo l'eccezione interna in una RuntimeException per la propagazione
+            
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -76,17 +75,12 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
             prestito.setPrestitoConcluso();
             prestito.getLibro().incrementaDisponibilita();
             
-            salvaDati();
+            salvaModifiche();
         }
     }
     
 
-    /**
-     * @brief Salva lo stato attuale di tutta la lista dei prestiti su file.
-     */
-    public void salvaDati() {
-        Salvataggio.salvaLista(listaPrestiti, FILE_PRESTITI);
-    }
+   
     
     /**
      * @brief Restituisce solo i prestiti attualmente attivi (non restituiti).
@@ -101,6 +95,35 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
         return attivi;
     }
     
+    /*
+     * Cerca corrispondenze nel titolo/ISBN del libro e nel nome/cognome/matricola dell'utente.
+     * @param testo La stringa da cercare.
+     * @return Una ObservableList contenente i prestiti che soddisfano i criteri.
+     */
+    public ObservableList<Prestito> ricercaTestuale(String testo) {
+        
+        ObservableList<Prestito> risultati = FXCollections.observableArrayList();
+        
+        if (testo == null || testo.isEmpty()) {
+            return this.listaPrestiti; 
+        }
+        
+        String testoLower = testo.toLowerCase();
+        
+        for (Prestito p : this.listaPrestiti) {
+            boolean matchLibroTitolo = p.getLibro().getTitolo().toLowerCase().contains(testoLower);
+            boolean matchLibroIsbn = p.getLibro().getIsbn().toLowerCase().contains(testoLower);
+           
+            boolean matchUtenteNome = p.getUtente().getNome().toLowerCase().contains(testoLower);
+            boolean matchUtenteCognome = p.getUtente().getCognome().toLowerCase().contains(testoLower);
+            boolean matchUtenteMatricola = p.getUtente().getMatricola().toLowerCase().contains(testoLower);
+            
+            if (matchLibroTitolo || matchLibroIsbn || matchUtenteNome || matchUtenteCognome || matchUtenteMatricola) {
+                risultati.add(p);
+            }
+        }
+          return risultati;
+    }
     /**
      * @brief Restituisce la lista dei prestiti.
      */
@@ -137,7 +160,7 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
     public boolean rimuovi(Prestito prestito) {
         boolean rimosso = listaPrestiti.remove(prestito);
         if (rimosso) {
-            salvaDati(); // Chiamata al metodo che incapsula Salvataggio
+            salvaModifiche(); // Chiamata al metodo che incapsula Salvataggio
         }
         return rimosso;
     }

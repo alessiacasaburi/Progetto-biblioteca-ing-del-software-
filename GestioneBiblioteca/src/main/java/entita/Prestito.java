@@ -57,6 +57,14 @@ public class Prestito implements Serializable{
     }
     
     /**
+    * @brief restituisce prestitoAttivo
+    */
+    public boolean getPrestitoAttivo() {
+        return prestitoAttivo; 
+    }
+    
+    
+    /**
      * @brief Restituisce l'utente associato a questo prestito.
      * @return L'oggetto Utente.
      */
@@ -96,6 +104,23 @@ public class Prestito implements Serializable{
         return dataInizio;
     }
     
+    /**
+     * @brief modifica la data di inizio del prestito.
+     ** @param datainizio data da voler modificare
+     */
+    public void setDataInizio( LocalDate datainizio) {
+        this.dataInizio = datainizio;
+    }
+    
+    /**
+     * @brief modifica la data di fine del prestito.
+     ** @param datascadenza data da voler modificare
+     */
+    public void setDataScadenza( LocalDate datascadenza) {
+        this.dataScadenza = datascadenza;
+    }
+    
+   
    @Override
    
     /**
