@@ -1,0 +1,23 @@
+@startuml
+title C9 – Cercare Utente
+
+actor Utente
+participant SchermataGestioneUtenti as "Schermata Gestione Utenti"
+participant GestoreUtenti as ":GestoreUtenti"
+
+alt Flusso Normale (Ricerca Base: Nome, Cognome, Codice Utente)
+    Utente -> "Schermata Gestione Utenti": 1. inserisciCriteriBase(nome, cognome, codice_utente)
+    activate "GestoreUtenti"
+    "Schermata Gestione Utenti" -> ":GestoreUtenti": 2. cercaUtente(criteriBase)
+else Flusso Alternativo 1a (Filtri Aggiuntivi: Stato, Prestiti)
+    Utente -> "Schermata Gestione Utenti": 1a. inserisciFiltriAggiuntivi(stato_iscrizione, num_prestiti)
+    activate "GestoreUtenti"
+    "Schermata Gestione Utenti" -> ":GestoreUtenti": 2a. cercaUtente(criteriAvanzati)
+end
+ 
+":GestoreUtenti" --> "Schermata Gestione Utenti": 3. ritorno: ListaRisultati(Utente)
+deactivate "GestoreUtenti"
+ 
+"Schermata Gestione Utenti" --> Utente: 4. visualizzaRisultati(listaUtenti) 
+
+@enduml
