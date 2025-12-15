@@ -1,0 +1,26 @@
+@startuml
+title C5 – Visualizzare Elenco Libri
+
+actor Utente
+participant "Schermata Elenco Libri" as SEL
+participant ":GestoreLibri" as GL
+
+Utente -> SEL : apreSchermataElencoLibri()
+
+alt Flusso normale (mostra tutti i libri)
+    SEL -> GL : getLista()
+    activate GL
+    GL --> SEL : ObservableList<Libro>
+    deactivate GL
+
+else Flusso alternativo (filtri / ordinamenti)
+    Utente -> SEL : applicaFiltri(criteriOrdinamento)
+    SEL -> GL : getLista(criteri)
+    activate GL
+    GL --> SEL : ObservableList<Libro>\n(filtrata / ordinata)
+    deactivate GL
+end
+
+SEL --> Utente : visualizzaElenco(listaLibri)
+
+@enduml
