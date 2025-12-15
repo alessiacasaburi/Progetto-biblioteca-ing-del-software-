@@ -20,7 +20,7 @@ public class MenuController {
 
     
     private GestoreLibri gestoreLibri = new GestoreLibri();
-    // private GestoreUtenti gestoreUtenti = new GestoreUtenti();
+    private GestoreUtenti gestoreUtenti = new GestoreUtenti();
     // private GestorePrestiti gestorePrestiti = new GestorePrestiti();
 
     @FXML
@@ -47,7 +47,24 @@ public class MenuController {
 
     @FXML
     private void vaiAUtenti(ActionEvent event) {
-        System.out.println("Schermata utenti non ancora implementata!");
+         try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UtentiView.fxml")); // Assicurati del percorso!
+            Parent root = loader.load();
+
+            UtentiController controller = loader.getController();
+
+            controller.setGestore(this.gestoreUtenti);
+
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Gestione Utenti");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
 

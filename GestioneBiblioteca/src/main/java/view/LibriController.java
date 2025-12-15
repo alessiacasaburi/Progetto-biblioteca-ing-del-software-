@@ -5,11 +5,9 @@ package view;
 
 import entita.Libro;
 import gestori.GestoreLibri;
-import gestori.Salvataggio;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import java.util.Optional;
