@@ -1,0 +1,53 @@
+@startuml
+title C11 – Registrare Prestito
+
+actor Utente
+participant SchermataPrestito as "Schermata Prestito"
+participant GestorePrestiti as ":GestorePrestiti"
+participant GestoreUtenti as ":GestoreUtenti"
+participant Libro as ":Libro"
+participant Prestito as "Prestito"
+
+Utente -> "Schermata Prestito": 1. selezionaLibro(ID_libro)
+Utente -> "Schermata Prestito": 2. selezionaUtente(ID_utente)
+ 
+activate GestorePrestiti
+"Schermata Prestito" -> ":GestorePrestiti": 2.5 avviaRegistrazione(ID_libro, ID_utente)
+ 
+":GestorePrestiti" -> ":Libro": 3. getCopieDisponibili()
+":Libro" --> ":GestorePrestiti": 3. ritorno: num_disponibili
+ 
+alt num_disponibili == 0 (Flusso Alternativo 3a)
+    ":GestorePrestiti" --> "Schermata Prestito": 3a. Errore: Nessuna copia disponibile
+else Disponibile (Continua)
+    ":GestorePrestiti" -> ":GestoreUtenti": 4. verificaLimitePrestiti(ID_utente)
+    ":GestoreUtenti" --> ":GestorePrestiti": 4. ritorno: limite_non_raggiunto (boolean)
+    
+    alt limite_non_raggiunto == false (Flusso Alternativo 4a)
+        ":GestorePrestiti" --> "Schermata Prestito": 4a. Errore: Limite prestiti raggiunto
+    else Limite Non Raggiunto (Continua)
+        "Schermata Prestito" -> Utente: 5. richiediConferma()
+        Utente -> "Schermata Prestito": 6. confermaPrestito()
+        
+        note over ":Libro"
+            Aggiornamento stato copia
+        end note
+        ":Libro" -> ":Libro": 7. decrementaDisponibilita()
+        
+        create Prestito
+        ":GestorePrestiti" -> Prestito: 8. create(Utente, Libro, dataInizio, dataScadenza)
+        
+        ":GestorePrestiti" --> "Schermata Prestito": 9. ritorno: OK/Prestito Registrato
+    end
+end
+ 
+deactivate GestorePrestiti
+
+alt Utente Annulla (dopo la richiesta di conferma)
+    Utente -> "Schermata Prestito": 9a. AnnullaPrestito()
+    "Schermata Prestito" -> "Schermata Prestito": Operazione annullata
+end
+ 
+"Schermata Prestito" --> Utente: 10. visualizzaNotifica(risultato)
+
+@enduml
