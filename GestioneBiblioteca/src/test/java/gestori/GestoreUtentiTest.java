@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gestori;
-
-/**
- *
- * @author Alessia
- */
 
 import entita.Utente;
 import javafx.collections.ObservableList;
@@ -16,117 +7,124 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test Suite per la classe GestoreUtenti.
+ * Test di unità e di integrazione per la classe GestoreUtenti.
+ * Verifica le logiche di business come l'aggiunta, la rimozione e la ricerca
+ * degli utenti, integrandosi con la classe Salvataggio per la persistenza.
  */
 public class GestoreUtentiTest {
 
     private GestoreUtenti gestore;
-    private Utente utente1;
-    private Utente utente2;
-    private Utente utenteInvalido;
+    private Utente u1;
+    private Utente u2;
+    private Utente u3;
 
     @BeforeEach
-    public void setUp() {
-        // Inizializza un nuovo gestore per ogni test
+    void setUp() {
+        // Inizializza un nuovo gestore per ogni test (isolamento garantito)
         gestore = new GestoreUtenti();
-
-        // Utenti validi per test standard
-        utente1 = new Utente("Mario", "Rossi","M001", "mario.rossi@unisa.it");
-        utente2 = new Utente("Luisa", "Bianchi", "M002", "luisa.bianchi@unisa.it");
         
-        // Utente con matricola corta per simulare un potenziale errore di validazione
-        // Nota: Assumo che il metodo Utente.verificamailmatr() lanci un'eccezione
-        // se i dati non sono validi (es. matricola troppo corta).
-        utenteInvalido = new Utente("Pippo", "Franco","1", "test@invalido.it");
+        // Pulizia della lista interna all'inizio di ogni test.
+        // ESSENZIALE: Evita che i dati scritti da un test interferiscano
+        // con il test successivo, forzando Salvataggio a salvare uno stato pulito.
+        if (gestore.getLista() != null) {
+            gestore.getLista().clear();
+            // Forza il salvataggio della lista vuota, se necessario
+            Salvataggio.salvaLista(gestore.getLista(), "archivio_libri.dat"); 
+        }
+
+        // Creo utenti di test
+        u1 = new Utente("1000000001", "Mario", "Rossi", "m.rossi@studenti.unisa.it");
+        u2 = new Utente("1000000002", "Luigi", "Verdi", "l.verdi@unisa.it");
+        // Utente con matricola duplicata per testare l'univocità
+        u3 = new Utente("1000000001", "Paolo", "Bianchi", "p.bianchi@unisa.it"); 
     }
 
-    // --- Test per AGGIUNGI ---
+
+    
+    @Test
+    void testCostruttore_ListaInizializzataCorrettamente() {
+        // Verifica che la lista esista e non sia null (grazie alla logica di Salvataggio)
+        assertNotNull(gestore.getLista());
+        // Dopo la pulizia in @BeforeEach, la lista deve essere vuota
+        assertTrue(gestore.getLista().isEmpty()); 
+    }
+
+   
 
     @Test
     void testAggiungi_Successo() {
-        gestore.aggiungi(utente1);
-        
-        assertEquals(1, gestore.getLista().size(), "La lista deve contenere un utente.");
-        assertTrue(gestore.getLista().contains(utente1), "L'utente aggiunto deve essere presente.");
+        gestore.aggiungi(u1);
+        assertEquals(1, gestore.getLista().size());
+        assertTrue(gestore.getLista().contains(u1));
     }
 
     @Test
-    void testAggiungi_MatricolaGiaEsistente() {
-        gestore.aggiungi(utente1); // Aggiunge il primo utente
-
-        // Tenta di aggiungere un nuovo utente con la stessa matricola (M001)
-        Utente utenteDuplicato = new Utente("Giovanni", "Verdi", "M001", "g.verdi@unisa.it");
-
-        // Verifica che venga lanciata l'eccezione
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            gestore.aggiungi(utenteDuplicato);
-        }, "Deve lanciare un'eccezione se la matricola è già registrata.");
-
-        assertTrue(exception.getMessage().contains("Matricola già registrata"), 
-                   "Il messaggio di errore deve indicare la duplicazione della matricola.");
-        assertEquals(1, gestore.getLista().size(), "La dimensione della lista non deve cambiare.");
+    void testAggiungi_MatricolaDuplicataLanciaEccezione() {
+        // 1. Aggiungo u1
+        gestore.aggiungi(u1);
+        
+        // 2. Verifico che l'aggiunta di u3 (stessa matricola) fallisca con eccezione
+        assertThrows(IllegalArgumentException.class, () -> {
+            gestore.aggiungi(u3);
+        }, "Aggiungere un utente con matricola duplicata deve lanciare eccezione.");
+        
+        // 3. La lista deve contenere solo un utente
+        assertEquals(1, gestore.getLista().size());
     }
     
     @Test
-    void testAggiungi_UtenteNonValido() {
-        // Il metodo aggiungi chiama utente.verificamailmatr()
+    void testAggiungi_DatiUtenteNonValidiLanciaEccezione() {
+        // Utente con matricola troppo corta (fallisce Utente.verificamailmatr)
+        Utente uInvalido = new Utente("123", "Nome", "Cog", "a@studenti.unisa.it");
         
-        // Verifica che l'eccezione venga lanciata dal metodo interno di Utente
-        // NOTA: Devi assicurarti che Utente.verificamailmatr() lanci un'eccezione
-        // se l'utenteInvalido non è valido (es. IllegalArgumentException o IllegalStateException)
-        
-        assertThrows(RuntimeException.class, () -> { 
-            gestore.aggiungi(utenteInvalido);
-        }, "Deve lanciare un'eccezione se l'utente fallisce la validazione interna.");
-
-        assertEquals(0, gestore.getLista().size(), "L'utente non valido non deve essere aggiunto.");
+        assertThrows(IllegalArgumentException.class, () -> {
+            gestore.aggiungi(uInvalido);
+        }, "L'aggiunta deve lanciare eccezione se Utente.verificamailmatr fallisce.");
     }
-
-    // --- Test per RIMUOVI ---
+    
 
     @Test
     void testRimuovi_Successo() {
-        gestore.aggiungi(utente1);
-        gestore.aggiungi(utente2);
-
-        assertTrue(gestore.rimuovi(utente1), "La rimozione del primo utente deve riuscire.");
-        assertEquals(1, gestore.getLista().size(), "La lista deve avere una dimensione ridotta.");
-        assertFalse(gestore.getLista().contains(utente1), "L'utente rimosso non deve essere in lista.");
+        gestore.aggiungi(u1);
+        
+        boolean rimosso = gestore.rimuovi(u1);
+        
+        assertTrue(rimosso, "L'utente dovrebbe essere rimosso con successo.");
+        assertTrue(gestore.getLista().isEmpty());
     }
 
     @Test
-    void testRimuovi_UtenteNonEsistente() {
-        gestore.aggiungi(utente1);
-
-        assertFalse(gestore.rimuovi(utente2), "La rimozione di un utente non presente deve fallire.");
-        assertEquals(1, gestore.getLista().size(), "La dimensione della lista non deve cambiare.");
+    void testRimuovi_NonEsistente() {
+        gestore.aggiungi(u1);
+        
+        boolean rimosso = gestore.rimuovi(u2); // u2 non è nella lista
+        
+        assertFalse(rimosso, "Rimuovere un utente non esistente deve restituire false.");
+        assertEquals(1, gestore.getLista().size());
     }
 
-    // --- Test per CERCA (per Matricola) ---
-
+    
     @Test
-    void testCerca_Successo() {
-        gestore.aggiungi(utente1);
-        gestore.aggiungi(utente2);
-
-        // Oggetto Utente con solo matricola usata per la ricerca
-        Utente ricerca = new Utente( null, null,utente1.getMatricola(), null); 
+    void testCerca_TrovatoPerMatricola() {
+        gestore.aggiungi(u1);
+        gestore.aggiungi(u2);
         
-        Utente trovato = gestore.cerca(ricerca);
+        // Creo un utente "placeholder" con solo la matricola per la ricerca
+        Utente ricerca = new Utente(u1.getMatricola(), null, null, null);
+        Utente trovato = gestore.cerca(ricerca); 
         
-        assertNotNull(trovato, "L'utente deve essere trovato.");
-        assertEquals(utente1.getMatricola(), trovato.getMatricola(), "La matricola trovata deve corrispondere.");
-        assertEquals(utente1, trovato, "L'oggetto Utente trovato deve essere lo stesso.");
+        assertNotNull(trovato);
+        assertEquals(u1, trovato, "Il metodo cerca deve restituire l'oggetto Utente corretto.");
     }
-
+    
     @Test
     void testCerca_NonTrovato() {
-        gestore.aggiungi(utente1);
+        gestore.aggiungi(u1);
         
-        // Oggetto Utente con matricola inesistente
-        Utente ricerca = new Utente(null, null,"M999", null); 
+        // Cerco u2 (non aggiunto)
+        Utente trovato = gestore.cerca(u2); 
         
-        assertNull(gestore.cerca(ricerca), "La ricerca deve restituire null se l'utente non esiste.");
+        assertNull(trovato, "La ricerca di un utente non presente deve restituire null.");
     }
     
     @Test
@@ -134,55 +132,55 @@ public class GestoreUtentiTest {
         assertNull(gestore.cerca(null), "La ricerca con oggetto nullo deve restituire null.");
     }
     
-    // --- Test per RICERCA ANAGRAFICA (Ricerca Grafica) ---
-
     @Test
-    void testRicercaAnagrafica_TestoVuotoO_Nullo() {
-        gestore.aggiungi(utente1);
-        gestore.aggiungi(utente2);
-        
-        // Testo nullo
-        assertEquals(2, gestore.ricercaAnagrafica(null).size(), "Con testo nullo deve tornare tutta la lista.");
-        // Testo vuoto
-        assertEquals(2, gestore.ricercaAnagrafica("").size(), "Con testo vuoto deve tornare tutta la lista.");
+    void testCerca_MatricolaNulla() {
+        Utente uMancante = new Utente(null, "A", "B", "c@unisa.it");
+        assertNull(gestore.cerca(uMancante), "La ricerca con matricola nulla deve restituire null.");
     }
 
+    
     @Test
-    void testRicercaAnagrafica_RicercaPerCognome_CaseInsensitive() {
-        gestore.aggiungi(utente1); // Rossi
+    void testRicercaAnagrafica_StringaVuotaOResetta() {
+        gestore.aggiungi(u1);
+        gestore.aggiungi(u2);
         
-        // Ricerca in minuscolo
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("rossi");
-        
-        assertEquals(1, risultati.size(), "Deve trovare un risultato per 'rossi'.");
-        assertTrue(risultati.contains(utente1), "Deve trovare l'utente Rossi.");
+        // Cerca con stringa vuota o null: deve restituire l'intera lista.
+        assertEquals(2, gestore.ricercaAnagrafica("").size());
+        assertEquals(2, gestore.ricercaAnagrafica(null).size());
     }
     
     @Test
-    void testRicercaAnagrafica_RicercaPerMatricolaParziale() {
-        gestore.aggiungi(utente1); // M001
-        gestore.aggiungi(utente2); // M002
+    void testRicercaAnagrafica_RicercaPerCognomeCaseInsensitive() {
+        gestore.aggiungi(u1); // Rossi
+        gestore.aggiungi(u2); // Verdi
         
-        // Ricerca per "00"
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("00");
+        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("ROSSI");
         
-        assertEquals(2, risultati.size(), "Deve trovare entrambi gli utenti per '00'.");
+        assertEquals(1, risultati.size());
+        assertEquals(u1, risultati.get(0));
     }
     
     @Test
-    void testRicercaAnagrafica_NessunaCorrispondenza() {
-        gestore.aggiungi(utente1);
+    void testRicercaAnagrafica_RicercaPerNomeCaseInsensitive() {
+        gestore.aggiungi(u1); // Mario
+        gestore.aggiungi(u2); // Luigi
         
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("XYZ");
+        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("mario");
         
-        assertTrue(risultati.isEmpty(), "Non deve trovare risultati per 'XYZ'.");
+        assertEquals(1, risultati.size());
+        assertEquals(u1, risultati.get(0));
     }
     
-    // --- Test per GETLISTA ---
-
     @Test
-    void testGetLista() {
-        gestore.aggiungi(utente1);
-        assertEquals(1, gestore.getLista().size(), "GetLista deve restituire la lista corrente.");
+    void testRicercaAnagrafica_RicercaPerMatricola() {
+        gestore.aggiungi(u1); // 1000000001
+        gestore.aggiungi(u2); // 1000000002
+        
+        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("002");
+        
+        assertEquals(1, risultati.size());
+        assertEquals(u2, risultati.get(0));
     }
 }
+    
+    
