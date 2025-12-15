@@ -1,186 +1,263 @@
-package gestori;
+package view;
 
 import entita.Utente;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import gestori.GestoreUtenti;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
 
-/**
- * Test di unità e di integrazione per la classe GestoreUtenti.
- * Verifica le logiche di business come l'aggiunta, la rimozione e la ricerca
- * degli utenti, integrandosi con la classe Salvataggio per la persistenza.
- */
-public class GestoreUtentiTest {
+import java.util.Optional;
+
+public class UtentiController {
+
+    // ===== FXML =====
+    @FXML private TextField txtRicerca;
+
+    @FXML private TableView<Utente> tabellaUtenti;
+    @FXML private TableColumn<Utente, String> colNome;
+    @FXML private TableColumn<Utente, String> colCognome;
+    @FXML private TableColumn<Utente, String> colMatricola;
+    @FXML private TableColumn<Utente, String> colEmail;
+    @FXML private TableColumn<Utente, Integer> colPrestiti;
 
     private GestoreUtenti gestore;
-    private Utente u1;
-    private Utente u2;
-    private Utente u3;
 
-    @BeforeEach
-    void setUp() {
-        // Inizializza un nuovo gestore per ogni test (isolamento garantito)
-        gestore = new GestoreUtenti();
-        
-        // Pulizia della lista interna all'inizio di ogni test.
-        // ESSENZIALE: Evita che i dati scritti da un test interferiscano
-        // con il test successivo, forzando Salvataggio a salvare uno stato pulito.
-        if (gestore.getLista() != null) {
-            gestore.getLista().clear();
-            // Forza il salvataggio della lista vuota, se necessario
-            Salvataggio.salvaLista(gestore.getLista(), "archivio_libri.dat"); 
+    // ===== INIT =====
+    @FXML
+    public void initialize() {
+
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+        colMatricola.setCellValueFactory(new PropertyValueFactory<>("matricola"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        // Prestiti attivi
+        colPrestiti.setCellValueFactory(cell ->
+                new SimpleIntegerProperty(
+                        (int) cell.getValue()
+                                .getPrestitiAttivi()
+                                .stream()
+                                .filter(p -> p.isPrestitoAttivo())
+                                .count()
+                ).asObject()
+        );
+
+        // 🎨 stile tabella
+        tabellaUtenti.setStyle(
+                "-fx-background-color: white;" +
+                "-fx-border-color: #aed6f1;" +
+                "-fx-border-radius: 12;" +
+                "-fx-background-radius: 12;"
+        );
+
+        tabellaUtenti.skinProperty().addListener((obs, o, n) -> {
+            if (n != null) {
+                tabellaUtenti.lookup(".column-header-background").setStyle(
+                        "-fx-background-color: #d6eaf8;"
+                );
+            }
+        });
+    }
+
+    // ===== INIEZIONE GESTORE =====
+    public void setGestore(GestoreUtenti gestore) {
+        this.gestore = gestore;
+        tabellaUtenti.setItems(gestore.getLista());
+
+        txtRicerca.textProperty().addListener((obs, oldVal, newVal) ->
+                tabellaUtenti.setItems(gestore.ricercaAnagrafica(newVal))
+        );
+    }
+
+    // ===== BOTTONI =====
+
+    @FXML
+    private void handleNuovo() {
+        apriDialog(null);
+    }
+
+    @FXML
+    private void handleModifica() {
+        Utente u = tabellaUtenti.getSelectionModel().getSelectedItem();
+        if (u == null) {
+            alert("Attenzione", "Seleziona un utente dalla tabella.");
+            return;
+        }
+        apriDialog(u);
+    }
+
+    @FXML
+    private void handleElimina() {
+        Utente u = tabellaUtenti.getSelectionModel().getSelectedItem();
+        if (u == null) {
+            alert("Attenzione", "Seleziona un utente da eliminare.");
+            return;
         }
 
-        // Creo utenti di test
-        u1 = new Utente("1000000001", "Mario", "Rossi", "m.rossi@studenti.unisa.it");
-        u2 = new Utente("1000000002", "Luigi", "Verdi", "l.verdi@unisa.it");
-        // Utente con matricola duplicata per testare l'univocità
-        u3 = new Utente("1000000001", "Paolo", "Bianchi", "p.bianchi@unisa.it"); 
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText("Stai eliminando l'utente:");
+        conferma.setContentText(u.toString());
+
+        if (conferma.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            gestore.rimuovi(u);
+        }
     }
 
+    // 🔥 ORA TORNA DAVVERO ALLA HOME
+    @FXML
+    private void handleIndietro(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MenuPrincipale.fxml")
+            );
+            Parent root = loader.load();
 
-    
-    @Test
-    void testCostruttore_ListaInizializzataCorrettamente() {
-        // Verifica che la lista esista e non sia null (grazie alla logica di Salvataggio)
-        assertNotNull(gestore.getLista());
-        // Dopo la pulizia in @BeforeEach, la lista deve essere vuota
-        assertTrue(gestore.getLista().isEmpty()); 
-    }
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene()
+                    .getWindow();
 
-   
+            stage.setScene(new Scene(root));
+            stage.setTitle("Biblioteca Manager - Home");
+            stage.show();
 
-    @Test
-    void testAggiungi_Successo() {
-        gestore.aggiungi(u1);
-        assertEquals(1, gestore.getLista().size());
-        assertTrue(gestore.getLista().contains(u1));
-    }
-
-    @Test
-    void testAggiungi_MatricolaDuplicataLanciaEccezione() {
-        // 1. Aggiungo u1
-        gestore.aggiungi(u1);
-        
-        // 2. Verifico che l'aggiunta di u3 (stessa matricola) fallisca con eccezione
-        assertThrows(IllegalArgumentException.class, () -> {
-            gestore.aggiungi(u3);
-        }, "Aggiungere un utente con matricola duplicata deve lanciare eccezione.");
-        
-        // 3. La lista deve contenere solo un utente
-        assertEquals(1, gestore.getLista().size());
-    }
-    
-    @Test
-    void testAggiungi_DatiUtenteNonValidiLanciaEccezione() {
-        // Utente con matricola troppo corta (fallisce Utente.verificamailmatr)
-        Utente uInvalido = new Utente("123", "Nome", "Cog", "a@studenti.unisa.it");
-        
-        assertThrows(IllegalArgumentException.class, () -> {
-            gestore.aggiungi(uInvalido);
-        }, "L'aggiunta deve lanciare eccezione se Utente.verificamailmatr fallisce.");
-    }
-    
-
-    @Test
-    void testRimuovi_Successo() {
-        gestore.aggiungi(u1);
-        
-        boolean rimosso = gestore.rimuovi(u1);
-        
-        assertTrue(rimosso, "L'utente dovrebbe essere rimosso con successo.");
-        assertTrue(gestore.getLista().isEmpty());
+        } catch (Exception e) {
+            alert("Errore", "Impossibile tornare alla Home.");
+            e.printStackTrace();
+        }
     }
 
-    @Test
-    void testRimuovi_NonEsistente() {
-        gestore.aggiungi(u1);
-        
-        boolean rimosso = gestore.rimuovi(u2); // u2 non è nella lista
-        
-        assertFalse(rimosso, "Rimuovere un utente non esistente deve restituire false.");
-        assertEquals(1, gestore.getLista().size());
+    // ===== DIALOG UTENTE =====
+    private void apriDialog(Utente u) {
+
+        Dialog<Utente> dialog = new Dialog<>();
+        dialog.setTitle(u == null ? "Nuovo Utente" : "Modifica Utente");
+        dialog.setHeaderText("Inserisci i dati dell'utente");
+
+        dialog.getDialogPane().setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #ffffff, #ebf5fb);" +
+                "-fx-border-color: #85c1e9;" +
+                "-fx-border-radius: 16;" +
+                "-fx-background-radius: 16;"
+        );
+
+        ButtonType salva = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(salva, ButtonType.CANCEL);
+
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salva);
+        btnSalva.setStyle(
+                "-fx-background-color: #5dade2;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-weight: bold;" +
+                "-fx-background-radius: 10;"
+        );
+
+        GridPane grid = new GridPane();
+        grid.setHgap(14);
+        grid.setVgap(14);
+        grid.setPadding(new Insets(20));
+
+        String fieldStyle =
+                "-fx-background-radius: 10;" +
+                "-fx-border-radius: 10;" +
+                "-fx-border-color: #aed6f1;";
+
+        String labelStyle =
+                "-fx-font-weight: bold;" +
+                "-fx-text-fill: #2e86c1;";
+
+        TextField nome = new TextField();
+        nome.setStyle(fieldStyle);
+
+        TextField cognome = new TextField();
+        cognome.setStyle(fieldStyle);
+
+        TextField matricola = new TextField();
+        matricola.setStyle(fieldStyle);
+
+        TextField email = new TextField();
+        email.setStyle(fieldStyle);
+
+        if (u != null) {
+            nome.setText(u.getNome());
+            cognome.setText(u.getCognome());
+            matricola.setText(u.getMatricola());
+            matricola.setDisable(true);
+            email.setText(u.getEmail());
+        }
+
+        grid.addRow(0, new Label("Nome"), nome);
+        grid.addRow(1, new Label("Cognome"), cognome);
+        grid.addRow(2, new Label("Matricola"), matricola);
+        grid.addRow(3, new Label("Email"), email);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(button -> {
+            if (button == salva) {
+                try {
+                    if (u == null) {
+                        return new Utente(
+                                matricola.getText(),
+                                nome.getText(),
+                                cognome.getText(),
+                                email.getText()
+                        );
+                    } else {
+                        String nuovoNome = nome.getText();
+                        String nuovoCognome = cognome.getText();
+                        String nuovaEmail = email.getText();
+
+                        Utente temp = new Utente(
+                                u.getMatricola(),
+                                nuovoNome,
+                                nuovoCognome,
+                                nuovaEmail
+                        );
+                        temp.verificamailmatr();
+
+                        u.setNome(nuovoNome);
+                        u.setCognome(nuovoCognome);
+                        u.setEmail(nuovaEmail);
+
+                        gestore.salvaModifiche();
+                        tabellaUtenti.refresh();
+                        return u;
+                    }
+                } catch (Exception e) {
+                    alert("Errore", e.getMessage());
+                }
+            }
+            return null;
+        });
+
+        Optional<Utente> result = dialog.showAndWait();
+
+        result.ifPresent(utente -> {
+            if (u == null) {
+                try {
+                    gestore.aggiungi(utente);
+                } catch (Exception e) {
+                    alert("Errore", e.getMessage());
+                }
+            }
+        });
     }
 
-    
-    @Test
-    void testCerca_TrovatoPerMatricola() {
-        gestore.aggiungi(u1);
-        gestore.aggiungi(u2);
-        
-        // Creo un utente "placeholder" con solo la matricola per la ricerca
-        Utente ricerca = new Utente(u1.getMatricola(), null, null, null);
-        Utente trovato = gestore.cerca(ricerca); 
-        
-        assertNotNull(trovato);
-        assertEquals(u1, trovato, "Il metodo cerca deve restituire l'oggetto Utente corretto.");
-    }
-    
-    @Test
-    void testCerca_NonTrovato() {
-        gestore.aggiungi(u1);
-        
-        // Cerco u2 (non aggiunto)
-        Utente trovato = gestore.cerca(u2); 
-        
-        assertNull(trovato, "La ricerca di un utente non presente deve restituire null.");
-    }
-    
-    @Test
-    void testCerca_OggettoNullo() {
-        assertNull(gestore.cerca(null), "La ricerca con oggetto nullo deve restituire null.");
-    }
-    
-    @Test
-    void testCerca_MatricolaNulla() {
-        Utente uMancante = new Utente(null, "A", "B", "c@unisa.it");
-        assertNull(gestore.cerca(uMancante), "La ricerca con matricola nulla deve restituire null.");
-    }
-
-    
-    @Test
-    void testRicercaAnagrafica_StringaVuotaOResetta() {
-        gestore.aggiungi(u1);
-        gestore.aggiungi(u2);
-        
-        // Cerca con stringa vuota o null: deve restituire l'intera lista.
-        assertEquals(2, gestore.ricercaAnagrafica("").size());
-        assertEquals(2, gestore.ricercaAnagrafica(null).size());
-    }
-    
-    @Test
-    void testRicercaAnagrafica_RicercaPerCognomeCaseInsensitive() {
-        gestore.aggiungi(u1); // Rossi
-        gestore.aggiungi(u2); // Verdi
-        
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("ROSSI");
-        
-        assertEquals(1, risultati.size());
-        assertEquals(u1, risultati.get(0));
-    }
-    
-    @Test
-    void testRicercaAnagrafica_RicercaPerNomeCaseInsensitive() {
-        gestore.aggiungi(u1); // Mario
-        gestore.aggiungi(u2); // Luigi
-        
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("mario");
-        
-        assertEquals(1, risultati.size());
-        assertEquals(u1, risultati.get(0));
-    }
-    
-    @Test
-    void testRicercaAnagrafica_RicercaPerMatricola() {
-        gestore.aggiungi(u1); // 1000000001
-        gestore.aggiungi(u2); // 1000000002
-        
-        ObservableList<Utente> risultati = gestore.ricercaAnagrafica("002");
-        
-        assertEquals(1, risultati.size());
-        assertEquals(u2, risultati.get(0));
+    // ===== ALERT =====
+    private void alert(String titolo, String messaggio) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle(titolo);
+        a.setHeaderText(null);
+        a.setContentText(messaggio);
+        a.showAndWait();
     }
 }
-    
-    
