@@ -174,6 +174,7 @@ public class LibriController {
                         libroDaModificare.setAutori(autori);
                         libroDaModificare.setAnnoPubblicazione(anno);
                         libroDaModificare.setCopieDisponibili(copie);
+                        
                         gestore.salvaModifiche();  
                         tabellaLibri.refresh();
                         return libroDaModificare;

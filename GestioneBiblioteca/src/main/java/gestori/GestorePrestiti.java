@@ -70,14 +70,17 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
      * @brief Gestisce la RESTITUZIONE del libro.
      * @param prestito il prestito da terminare
      */
-    public void terminaPrestito(Prestito prestito) {
+    public void chiudiPrestito(Prestito prestito) {
         if (prestito.isPrestitoAttivo()) {
+            prestito.getUtente().setPrestitoConcluso(prestito);
             prestito.setPrestitoConcluso();
             prestito.getLibro().incrementaDisponibilita();
+            prestito.getUtente().aggiungiPrestito(prestito);
             
             salvaModifiche();
-        }
+            }
     }
+    
     
 
    
@@ -158,12 +161,14 @@ public class GestorePrestiti implements ManagerGenerale<Prestito> {
      */
     @Override
     public boolean rimuovi(Prestito prestito) {
-        boolean rimosso = listaPrestiti.remove(prestito);
-        if (rimosso) {
-            salvaModifiche(); // Chiamata al metodo che incapsula Salvataggio
+        if (!prestito.isPrestitoAttivo()) {
+            listaPrestiti.remove(prestito);
+            return true; 
+        } else {
+          
+            throw new IllegalStateException("Impossibile rimuovere il prestito: chiudi il prestito prima di rimuoverlo");
         }
-        return rimosso;
-    }
+           }
     /**
      * Salva lo stato corrente della lista sul file.
      * Da utilizzare dopo modifiche agli oggetti (set) che non alterano la dimensione della lista.

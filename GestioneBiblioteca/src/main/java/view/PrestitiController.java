@@ -182,8 +182,10 @@ public class PrestitiController {
                         prestitoDaModificare.setDataInizio(dataInizio.getValue());
                         prestitoDaModificare.setDataScadenza(dataScadenza.getValue());
                         
+                        
                         gestorePrestiti.salvaModifiche();
                         tabellaPrestiti.refresh();
+                       
                         return prestitoDaModificare;
                     }
                 } catch (Exception ex) {
@@ -200,7 +202,8 @@ public class PrestitiController {
             if (prestitoDaModificare == null) { 
                 try {
                     gestorePrestiti.aggiungi(prestito);
-                    gestoreLibri.salvaModifiche();  
+                    gestoreLibri.salvaModifiche();
+                    gestoreUtenti.salvaModifiche();
                 } catch (Exception e) {
                     alert("Errore", e.getMessage()); 
                 }
@@ -217,14 +220,25 @@ public class PrestitiController {
                 return;
             }
             try {
-                selezionato.setPrestitoConcluso();              
-                selezionato.getLibro().incrementaDisponibilita();
+                    selezionato.setPrestitoConcluso();
+                entita.Libro libroReale = gestoreLibri.cerca(selezionato.getLibro());
+                if (libroReale != null) {
+                    libroReale.incrementaDisponibilita();
+                }
+                entita.Utente utenteReale = gestoreUtenti.cerca(selezionato.getUtente());
+                if (utenteReale != null) {
+                    
+                    utenteReale.getPrestitiAttivi().removeIf(p -> 
+                        p.getLibro().getIsbn().equals(selezionato.getLibro().getIsbn()) &&
+                        p.getDataInizio().isEqual(selezionato.getDataInizio())
+                    );
+                }
     
                 gestorePrestiti.salvaModifiche();
-                
+                gestoreUtenti.salvaModifiche();
                 gestoreLibri.salvaModifiche();
-    
                 tabellaPrestiti.refresh();
+               
             } catch (Exception e) {
                 alert("Errore", "Impossibile completare restituzione: " + e.getMessage());
             }

@@ -113,6 +113,17 @@ public class Utente implements Serializable{
            prestitiAttivi.add(p);
         }
     }
+      /**
+     * @brief Rimuove il prestito dalla lista prestiti degli utenti 
+     * @param p l'oggetto della classe prestiti da rimuovere dalla lista.
+     *  Controlla che lo stesso prestito non esista già nella lista.
+     */
+    
+    public void setPrestitoConcluso(Prestito p){
+          if(prestitiAttivi.contains(p)) {
+           prestitiAttivi.remove(p);
+          }
+    }
     
     /**
      * @brief Conta quanti libri l'utente ha attualmente in presito.
