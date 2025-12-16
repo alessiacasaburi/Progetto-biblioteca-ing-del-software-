@@ -1,0 +1,73 @@
+@startuml
+title Package Diagram - GestioneBiblioteca
+
+' -------------------------
+' IMPOSTAZIONI DI LAYOUT
+' -------------------------
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype ortho
+
+' -------------------------
+' PACKAGE ESTERNI
+' -------------------------
+package "GestioneBiblioteca" {
+
+  package "Source Packages" {
+
+    package "<default package>" {
+      class Main
+    }
+
+    package entita {
+      class Libro
+      class Prestito
+      class Utente
+    }
+
+    package gestori {
+      class GestoreLibri
+      class GestorePrestiti
+      class GestoreUtenti
+      class ManagerGenerale
+      class Salvataggio
+    }
+
+    package view {
+      class LibriController
+      class PrestitiController
+      class UtentiController
+      class MenuController
+    }
+  }
+
+  package "Test Packages" {
+
+    package "entita (test)" {
+      class LibroTest
+      class PrestitoTest
+      class UtenteTest
+    }
+
+    package "gestori (test)" {
+      class GestoreLibriTest
+      class GestorePrestitiTest
+      class GestoreUtentiTest
+      class SalvataggioTest
+    }
+  }
+}
+
+' -------------------------
+' DIPENDENZE (POCHE E CHIARE)
+' -------------------------
+Main --> view : avvio UI
+view --> gestori
+gestori --> entita
+gestori --> Salvataggio
+
+"entita (test)" ..> entita : test
+"gestori (test)" ..> gestori : test
+
+@enduml
